@@ -22,11 +22,12 @@ public class Recept {
 	public Recept() {
 		super();
 	}
-	public Recept(String naziv, String opis, String tekst, int brLajkova, int brDislajkova, Date datumObjave,
+	public Recept(int idRecepta,String naziv, String opis, String tekst, int brLajkova, int brDislajkova, Date datumObjave,
 			boolean suspendovan, Kategorija kategorija, Korisnik korisnik, ArrayList<Aparat> neophodniAparati,
 			ArrayList<Aparat> opcioniAparati, ArrayList<KolicinaSastojka> neophodniSastojci,
 			ArrayList<KolicinaSastojka> opcioniSastojci, ArrayList<Komentar> komentari) {
 		super();
+		this.idRecepta = idRecepta;
 		this.naziv = naziv;
 		this.opis = opis;
 		this.tekst = tekst;
