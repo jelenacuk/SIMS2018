@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Recept {
+	private int idRecepta;
 	private String naziv;
 	private String opis;
 	private String tekst;
@@ -40,6 +41,13 @@ public class Recept {
 		this.neophodniSastojci = neophodniSastojci;
 		this.opcioniSastojci = opcioniSastojci;
 		this.komentari = komentari;
+	}
+	
+	public int getIdRecepta() {
+		return idRecepta;
+	}
+	public void setIdRecepta(int idRecepta) {
+		this.idRecepta = idRecepta;
 	}
 	public String getNaziv() {
 		return naziv;
