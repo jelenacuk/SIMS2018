@@ -55,6 +55,7 @@ public class ReceptServis {
 			recepti.put(idRecepta, recept);
 				
 		}
+		bf.close();
 	}
 	
 	

@@ -28,6 +28,7 @@ public class SastojakServis {
 			
 			sastojci.add(sastojak);
 		}
+		bf.close();
 	}
 	
 	public ArrayList<Sastojak> getSastojci() {

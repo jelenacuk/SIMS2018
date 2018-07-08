@@ -26,6 +26,7 @@ public class KategorijaServis {
 			
 			kategorije.add(kategorija);
 		}
+		bf.close();
 	}
 
 	public ArrayList<Kategorija> getKategorije() {

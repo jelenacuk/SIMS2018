@@ -1,10 +1,15 @@
 package Services;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import dataClasses.Aparat;
 import dataClasses.KolicinaSastojka;
@@ -66,7 +71,7 @@ public class KorisnikServis {
 				
 			}
 			
-			//Fali kolicina sastojaka! TO DO!!!
+			//Ucitavanje kolicineSastojaka.
 			String[] sLSastojci = sL[6].split("\\;");
 			for(int i = 0; i < sLSastojci.length;i++) {
 				if ( sLSastojci[i].equals("")) {
@@ -111,6 +116,29 @@ public class KorisnikServis {
 			korisnici.put(sL[0], ucitaniKorisnik);
 
 		}
+		bf.close();
+	}
+	
+	public void upisiKorisnike(String nazivFajla) throws IOException {
+		PrintWriter upisiKorisnika = new PrintWriter(new FileWriter(nazivFajla));
+		
+		for(Map.Entry<String, Korisnik> entry : this.korisnici.entrySet()) {
+			Korisnik kor = entry.getValue();
+			String strZaUpis = kor.getUsername() + "|"+ kor.getPassword() + "|" +
+			kor.getBrojacLajkova() + "|" + kor.getVrstaKorisnika().toString() + "|"
+			+ kor.getTitula().toString() + "|";
+			String strIdRecepata = "";
+			for(int i = 0; i < kor.getRecepti().size();i++) {
+				if(i > 0) {
+					strIdRecepata += ";";
+				}
+				strIdRecepata += kor.getRecepti().get(i).getIdRecepta();
+			}
+			strIdRecepata += "|";
+			
+			
+		}
+		
 	}
 	
 	private Recept pronadjiRecept(HashMap<Integer,Recept> recepti, int id) {
@@ -132,7 +160,7 @@ public class KorisnikServis {
 		
 		return pronadjeniAparat;
 	}
-	public KolicinaSastojka pronadjiKolicinuSastojka(ArrayList<KolicinaSastojka> sastojci, int id) {
+	private KolicinaSastojka pronadjiKolicinuSastojka(ArrayList<KolicinaSastojka> sastojci, int id) {
 		KolicinaSastojka sastojak = null;
 		for (int i = 0; i < sastojci.size(); i++) {
 			if ( sastojci.get(i).getIdKolicineSastojaka() == id ) {

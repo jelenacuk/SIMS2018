@@ -31,6 +31,7 @@ public class KolicinaSastojkaServis {
 			kolicineSastojaka.add(ks);
 			
 		}
+		bf.close();
 		
 	}
 	

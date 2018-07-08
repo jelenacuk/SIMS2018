@@ -29,6 +29,7 @@ public class AparatServis {
 			
 			aparati.add(aparat);
 		}
+		bf.close();
 	}
 
 	public ArrayList<Aparat> getAparati() {
