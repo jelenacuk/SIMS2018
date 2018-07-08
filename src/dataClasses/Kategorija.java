@@ -11,7 +11,12 @@ public class Kategorija {
 		this.naziv = naziv;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String line = naziv + "\n";
+		return line;
+		
+	}
 	
 
 	public int getIdKategorije() {

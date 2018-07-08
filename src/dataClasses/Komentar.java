@@ -15,6 +15,14 @@ public class Komentar {
 		this.korisnik = korisnik;
 	}
 	
+	
+	@Override
+	public String toString() {
+		String line = "Datum: " + datum + "\nKorisnik: " + korisnik.toString() + "\nTekst: " + tekst + "\n";
+		return line;
+		
+	}
+	
 	public int getIdKomentara() {
 		return idKomentara;
 	}

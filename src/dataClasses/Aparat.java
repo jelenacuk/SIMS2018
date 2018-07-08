@@ -18,6 +18,13 @@ public class Aparat {
 		this.opis = opis;
 	}
 	
+	@Override
+	public String toString() {
+		String line = "Naziv: " + naziv + ". " + opis + "\n";
+		return line;
+		
+	}
+	
 	public int getIdAparata() {
 		return idAparata;
 	}

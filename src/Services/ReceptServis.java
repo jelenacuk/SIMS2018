@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class ReceptServis {
 	
 	private HashMap<Integer , Recept> recepti;
-	public  SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy. HH:mm");
+	public  SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
 	
 	
 	public ReceptServis() {
@@ -40,7 +40,7 @@ public class ReceptServis {
 			int brDislajkova = Integer.parseInt(podaci[5]);
 			Date datumObjave = sdf.parse(podaci[6]);
 			Boolean suspendovan = Boolean.parseBoolean(podaci[7]);
-			Kategorija kategorija = nadjiKategoriju(kategorije, Integer.parseInt(podaci[5]));
+			Kategorija kategorija = nadjiKategoriju(kategorije, Integer.parseInt(podaci[8]));
 			Korisnik korisnik =  nadjiKorisnika(korisnici, podaci[9]);
 			ArrayList<Aparat> neophodniAparati = napraviListuAparata(podaci[10], aparati);
 			ArrayList<Aparat> opcioniAparati = napraviListuAparata(podaci[11], aparati);
@@ -63,6 +63,9 @@ public class ReceptServis {
 		ArrayList<Komentar> vrati = new ArrayList<Komentar>();
 		String[] komentari = line.split("\\;");
 		for (String ko : komentari) {
+			if ( ko.equals("")) {
+				break;
+			}
 			vrati.add( nadjiKomentar(listaKomentara, Integer.parseInt(ko)) );
 		}
 		return vrati;
@@ -73,6 +76,9 @@ public class ReceptServis {
 		ArrayList<Aparat> vrati = new ArrayList<Aparat>();
 		String[] aparati = line.split("\\;");
 		for (String ap : aparati) {
+			if ( ap.equals("")) {
+				break;
+			}
 			vrati.add(nadjiSAparat(listaAparata, Integer.parseInt(ap)));
 		}
 		return vrati;
@@ -83,6 +89,9 @@ public class ReceptServis {
 		ArrayList<KolicinaSastojka> vrati = new ArrayList<KolicinaSastojka>();
 		String[] sastojci = line.split("\\;");
 		for (String sa : sastojci) {
+			if ( sa.equals("")) {
+				break;
+			}
 			vrati.add(nadjiKolicinuSastojka(listaSastojaka, Integer.parseInt(sa)) );
 		}
 		return vrati;

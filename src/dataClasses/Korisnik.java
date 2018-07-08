@@ -1,6 +1,7 @@
 package dataClasses;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Korisnik {
 	private String username;
@@ -31,6 +32,36 @@ public class Korisnik {
 		this.dislajkovaniRecepti = dislajkovaniRecepti;
 		this.aparati = aparati;
 	}
+	
+	@Override
+	public String toString() {
+		String line = "Korisnicko ime: " + username + "\nPassword: "+ password + "\n";
+		line += "Aparati:\n";
+	
+		for (Aparat a : aparati) {
+			line +=  "\t" +  a.getNaziv() + "\n";
+		}
+		
+		line += "Kolicine sastojaka:\n";
+		for (KolicinaSastojka s :kolicinaSastojaka ) {
+			line +=  "\t" +  s.getKolicina() + "\n";
+		}
+		line += "Recepti:\n";
+		for (Recept r : recepti) {
+			line +=  "\t" +  r.getNaziv() + "\n";
+		}
+		line += "Lajkovani recepti:\n";
+		for (Recept r : lajkovaniRecepti) {
+			line +=  "\t" +  r.getNaziv() + "\n";
+		}
+		line += "Dislajkovani recepti:\n";
+		for (Recept r : dislajkovaniRecepti) {
+			line +=  "\t" +  r.getNaziv() + "\n";
+		}
+		return line;
+		
+	}
+	
 	public String getUsername() {
 		return username;
 	}

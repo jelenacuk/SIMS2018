@@ -22,12 +22,11 @@ public class KorisnikServis {
 	
 	//Metoda za ucitavanje postojecih korisnika iz fajla.
 	//Metoda ucitava podatke, liniju po liniju i za svaku liniju pravi novog korisnika.
-	public void ucitajKorisnike(String nazivFajla,HashMap<Integer, Recept> recepti, ArrayList<Aparat> aparati) throws IOException {
+	public void ucitajKorisnike(String nazivFajla,HashMap<Integer, Recept> recepti, ArrayList<KolicinaSastojka> sastojci, ArrayList<Aparat> aparati) throws IOException {
 		String trenutnaLinija;
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
 		while ((trenutnaLinija = bf.readLine()) != null) {
 			String[] sL = trenutnaLinija.split("\\|");
-			
 			//Instanciranje ucitanog korisnika.
 			Korisnik ucitaniKorisnik = new Korisnik(sL[0], sL[1], Integer.parseInt(sL[2]), VrstaKorisnika.REGULARAN,
 					TitulaKorisnika.NOVAJLIJA, new ArrayList<Recept>(), new ArrayList<KolicinaSastojka>(),
@@ -56,18 +55,34 @@ public class KorisnikServis {
 				ucitaniKorisnik.setTitula(TitulaKorisnika.VELEMAJSTOR);
 			}
 			
-			//Fali kolicina sastojaka! TO DO!!!
-			
 			//Ucitavanje recepata korisnika (preko id-a recepta).
 			String[] sLRecepti = sL[5].split("\\;");
 			for(int i = 0; i < sLRecepti.length;i++) {
+				if ( sLRecepti[i].equals("")) {
+					break;
+				}
 				Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLRecepti[i]));
 				ucitaniKorisnik.getRecepti().add(ucitaniRecept);
+				
 			}
+			
+			//Fali kolicina sastojaka! TO DO!!!
+			String[] sLSastojci = sL[6].split("\\;");
+			for(int i = 0; i < sLSastojci.length;i++) {
+				if ( sLSastojci[i].equals("")) {
+					break;
+				}
+				KolicinaSastojka ks = pronadjiKolicinuSastojka(sastojci, Integer.parseInt(sLSastojci[i]));
+				ucitaniKorisnik.getKolicinaSastojaka().add(ks);
+			}
+			
 			
 			//Ucitavanje lajkovanih recepata (preko id-a recepta).
 			String[] sLLajkovani = sL[7].split("\\;");
 			for(int i = 0; i < sLLajkovani.length;i++) {
+				if ( sLLajkovani[i].equals("")) {
+					break;
+				}
 				Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLLajkovani[i]));
 				ucitaniKorisnik.getLajkovaniRecepti().add(ucitaniRecept);
 			}
@@ -75,6 +90,9 @@ public class KorisnikServis {
 			//Ucitavanje dislajkovanih recepata (preko id-a recepta).
 			String[] sLDis = sL[8].split("\\;");
 			for(int i = 0; i < sLDis.length;i++) {
+				if ( sLDis[i].equals("")) {
+					break;
+				}
 				Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLDis[i]));
 				ucitaniKorisnik.getDislajkovaniRecepti().add(ucitaniRecept);
 			}
@@ -82,6 +100,10 @@ public class KorisnikServis {
 			//Ucitavanje aparata (preko naziva aparata).
 			String[] sLAparati = sL[9].split("\\;");
 			for(int i = 0; i < sLAparati.length;i++) {
+				if ( sLAparati[i].equals("")) {
+					break;
+				}
+				
 				Aparat ucitaniAparat = pronadjiAparat(aparati, sLAparati[i]);
 				ucitaniKorisnik.getAparati().add(ucitaniAparat);
 			}
@@ -93,21 +115,34 @@ public class KorisnikServis {
 	
 	private Recept pronadjiRecept(HashMap<Integer,Recept> recepti, int id) {
 		Recept pronadjeniRecept = null;
-		pronadjeniRecept = recepti.get(id);
+		if (recepti.containsKey(id)) {
+			pronadjeniRecept = recepti.get(id);
+		}
 		
 		return pronadjeniRecept;
 	}
 	
-	private Aparat pronadjiAparat(ArrayList<Aparat> aparati,String naziv) {
+	private Aparat pronadjiAparat(ArrayList<Aparat> aparati,String id) {
 		Aparat pronadjeniAparat = null;
 		for(Aparat ap : aparati) {
-			if(ap.getNaziv().equals(naziv)) {
+			if(ap.getIdAparata() == Integer.parseInt(id)) {
 				pronadjeniAparat = ap;
 			}
 		}
 		
 		return pronadjeniAparat;
 	}
+	public KolicinaSastojka pronadjiKolicinuSastojka(ArrayList<KolicinaSastojka> sastojci, int id) {
+		KolicinaSastojka sastojak = null;
+		for (int i = 0; i < sastojci.size(); i++) {
+			if ( sastojci.get(i).getIdKolicineSastojaka() == id ) {
+				sastojak = sastojci.get(i);
+				break;
+			}
+		}
+		return sastojak;
+	}
+	
 
 	public HashMap<String, Korisnik> getKorisnici() {
 		return korisnici;

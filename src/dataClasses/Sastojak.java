@@ -13,6 +13,14 @@ public class Sastojak {
 		this.opis = opis;
 	}
 	
+	@Override
+	public String toString() {
+		String line = "Naziv: " + naziv + ". " + opis + "\n";
+		return line;
+		
+	}
+	
+	
 	
 	
 	public int getIdSastojka() {
