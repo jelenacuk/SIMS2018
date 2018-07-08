@@ -6,7 +6,7 @@ public class Aparat {
 	private String naziv;
 	private String opis;
 	
-	
+	//test
 	public Aparat() {
 	}
 	
