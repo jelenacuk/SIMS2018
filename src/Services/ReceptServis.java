@@ -27,7 +27,7 @@ public class ReceptServis {
 		this.recepti = new HashMap<Integer , Recept>();
 	}
 	
-	public void ucitaj(String nazivFajla,HashMap<String, Korisnik> korisnici,  ArrayList<Sastojak> sastojci, ArrayList<Aparat> aparati, ArrayList<Kategorija> kategorije,ArrayList<Komentar> komentari ) throws IOException, ParseException {
+	public void ucitaj(String nazivFajla,HashMap<String, Korisnik> korisnici,  ArrayList<KolicinaSastojka> sastojci, ArrayList<Aparat> aparati, ArrayList<Kategorija> kategorije,ArrayList<Komentar> komentari ) throws IOException, ParseException {
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
 		String line = "";
 		while ( (line = bf.readLine()) != null ) {
@@ -40,7 +40,7 @@ public class ReceptServis {
 			int brDislajkova = Integer.parseInt(podaci[5]);
 			Date datumObjave = sdf.parse(podaci[6]);
 			Boolean suspendovan = Boolean.parseBoolean(podaci[7]);
-			Kategorija kategorija = nadjiKategoriju(kategorije, podaci[8]);
+			Kategorija kategorija = nadjiKategoriju(kategorije, Integer.parseInt(podaci[5]));
 			Korisnik korisnik =  nadjiKorisnika(korisnici, podaci[9]);
 			ArrayList<Aparat> neophodniAparati = napraviListuAparata(podaci[10], aparati);
 			ArrayList<Aparat> opcioniAparati = napraviListuAparata(podaci[11], aparati);
@@ -73,17 +73,17 @@ public class ReceptServis {
 		ArrayList<Aparat> vrati = new ArrayList<Aparat>();
 		String[] aparati = line.split("\\;");
 		for (String ap : aparati) {
-			vrati.add(nadjiSAparat(listaAparata, ap));
+			vrati.add(nadjiSAparat(listaAparata, Integer.parseInt(ap)));
 		}
 		return vrati;
 		
 	}
 	
-	public ArrayList<KolicinaSastojka> napraviListuSastojaka(String line, ArrayList<Sastojak> listaSastojaka){
+	public ArrayList<KolicinaSastojka> napraviListuSastojaka(String line, ArrayList<KolicinaSastojka> listaSastojaka){
 		ArrayList<KolicinaSastojka> vrati = new ArrayList<KolicinaSastojka>();
 		String[] sastojci = line.split("\\;");
 		for (String sa : sastojci) {
-		//	vrati.add(nadjiSastojak(listaSastojaka, sa) );
+			vrati.add(nadjiKolicinuSastojka(listaSastojaka, Integer.parseInt(sa)) );
 		}
 		return vrati;
 		
@@ -98,10 +98,10 @@ public class ReceptServis {
 	}
 	
 	
-	public Kategorija nadjiKategoriju(ArrayList<Kategorija> kategorije, String naziv) {
+	public Kategorija nadjiKategoriju(ArrayList<Kategorija> kategorije, int id) {
 		Kategorija kategorija = null;
 		for (int i = 0; i < kategorije.size(); i++) {
-			if ( kategorije.get(i).getNaziv() == naziv ) {
+			if ( kategorije.get(i).getIdKategorije() == id ) {
 				kategorija = kategorije.get(i);
 				break;
 			}
@@ -112,10 +112,10 @@ public class ReceptServis {
 	
 	
 	
-	public Sastojak nadjiSastojak(ArrayList<Sastojak> sastojci, String naziv) {
-		Sastojak sastojak = null;
+	public KolicinaSastojka nadjiKolicinuSastojka(ArrayList<KolicinaSastojka> sastojci, int id) {
+		KolicinaSastojka sastojak = null;
 		for (int i = 0; i < sastojci.size(); i++) {
-			if ( sastojci.get(i).getNaziv() == naziv ) {
+			if ( sastojci.get(i).getIdKolicineSastojaka() == id ) {
 				sastojak = sastojci.get(i);
 				break;
 			}
@@ -123,10 +123,10 @@ public class ReceptServis {
 		return sastojak;
 	}
 	
-	public Aparat nadjiSAparat(ArrayList<Aparat> aparati, String naziv) {
+	public Aparat nadjiSAparat(ArrayList<Aparat> aparati, int id) {
 		Aparat aparat = null;
 		for (int i = 0; i < aparati.size(); i++) {
-			if ( aparati.get(i).getNaziv() == naziv ) {
+			if ( aparati.get(i).getIdAparata() == id ) {
 				aparat = aparati.get(i);
 				break;
 			}

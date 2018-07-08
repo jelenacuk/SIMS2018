@@ -1,16 +1,28 @@
 package dataClasses;
 
-import java.util.ArrayList;
 
 public class KolicinaSastojka {
+	
+	private int idKolicineSastojaka;
 	private int kolicina;
 	private Sastojak sastojak;
-	private ArrayList<KolicinaSastojka> alternativniSastojci;
-	public KolicinaSastojka(int kolicina, Sastojak sastojak) {
+	
+	public KolicinaSastojka(int id, int kolicina, Sastojak sastojak) {
 		super();
+		this.idKolicineSastojaka = id;
 		this.kolicina = kolicina;
 		this.sastojak = sastojak;
 	}
+	
+	
+	public int getIdKolicineSastojaka() {
+		return idKolicineSastojaka;
+	}
+
+	public void setIdKolicineSastojaka(int idKolicineSastojaka) {
+		this.idKolicineSastojaka = idKolicineSastojaka;
+	}
+
 	public int getKolicina() {
 		return kolicina;
 	}
@@ -23,18 +35,7 @@ public class KolicinaSastojka {
 	public void setSastojak(Sastojak sastojak) {
 		this.sastojak = sastojak;
 	}
-	public ArrayList<KolicinaSastojka> getAlternativniSastojci() {
-		return alternativniSastojci;
-	}
-	public void setAlternativniSastojci(ArrayList<KolicinaSastojka> alternativniSastojci) {
-		this.alternativniSastojci = alternativniSastojci;
-	}
-	public void dodajAltSastojak(KolicinaSastojka kolSastojka) {
-		this.alternativniSastojci.add(kolSastojka);
-	}
-	public void obrisiAltSastojak(KolicinaSastojka kolSastojka) {
-		this.alternativniSastojci.remove(kolSastojka);
-	}
+
 	
 	@Override
 	public boolean equals(Object obj) {

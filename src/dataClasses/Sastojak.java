@@ -1,13 +1,25 @@
 package dataClasses;
 
 public class Sastojak {
+	
+	private int idSastojka;
 	private String naziv;
 	private String opis;
 	
-	public Sastojak(String naziv, String opis) {
+	public Sastojak(int id, String naziv, String opis) {
 		super();
+		this.idSastojka = id;
 		this.naziv = naziv;
 		this.opis = opis;
+	}
+	
+	
+	
+	public int getIdSastojka() {
+		return idSastojka;
+	}
+	public void setIdSastojka(int idSastojka) {
+		this.idSastojka = idSastojka;
 	}
 	public String getNaziv() {
 		return naziv;

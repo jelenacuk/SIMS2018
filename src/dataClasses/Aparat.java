@@ -1,15 +1,28 @@
 package dataClasses;
 
 public class Aparat {
+	
+	private int idAparata;
 	private String naziv;
 	private String opis;
-	public Aparat(String naziv, String opis) {
+	
+	
+	public Aparat() {
+	}
+	
+	
+	public Aparat(int id, String naziv, String opis) {
 		super();
+		this.idAparata = id;
 		this.naziv = naziv;
 		this.opis = opis;
 	}
-	public Aparat() {
-		super();
+	
+	public int getIdAparata() {
+		return idAparata;
+	}
+	public void setIdAparata(int idAparata) {
+		this.idAparata = idAparata;
 	}
 	public String getNaziv() {
 		return naziv;
