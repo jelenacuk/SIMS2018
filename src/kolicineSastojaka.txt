@@ -1,0 +1,2 @@
+0|500 grama|7
+1|jedan litar|11
