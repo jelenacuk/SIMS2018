@@ -36,6 +36,8 @@ public void initGUI(){
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FrontPageView view = new FrontPageView(model);
+		setResizable(false);
 		add(view);
+		pack();
 	}
 }

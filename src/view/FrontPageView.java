@@ -3,6 +3,8 @@ package view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import Services.MyGridBagConstraints;
+import dataClasses.Aparat;
 import dataClasses.Aplikacija;
 import dataClasses.Sastojak;
 import model.FrontPageModel;
@@ -12,6 +14,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Scrollbar;
@@ -33,64 +36,71 @@ public class FrontPageView extends JPanel implements Observer{
 	//pretraga i filteri
 	JButton btSearch;
 	JTextField textSearch;
-	JPanel sastojciPanel;
-	JPanel aparatiPanel;
 	JPanel kategorijePanel;
 	JPanel upper;
-	JPanel left;
-	JPanel center;
+	JPanel left,sastojciPanel,aparatiPanel;
+	JPanel center,noviReceptiPanel,popularniReceptiPanel;
 	HashMap<Sastojak, JCheckBox> sastojciDugmad;  // veza izmedju sastojaka i dugmadi, kako bi znali koji su sastojci selektovani
 	public FrontPageView(FrontPageModel model)
 	{
-		setLayout(new BorderLayout());
+		setLayout(new GridBagLayout());
 		upper = new JPanel();
-		upper.setSize(800, 60);
 		left = new JPanel();
-		left.setSize(200,100);
-		left.setLayout(new GridLayout(0, 3));
-		center = new JPanel(new GridLayout(3, 5));
-		center.setSize(500,500);
-		
-		add(upper,BorderLayout.NORTH);
-		add(left,BorderLayout.WEST);
-		add(center,BorderLayout.CENTER);
+		noviReceptiPanel = new JPanel();
+		noviReceptiPanel.setSize(300, 200);
+		popularniReceptiPanel = new JPanel();
+		left.setLayout(new BoxLayout(left, BoxLayout.PAGE_AXIS));
 		sastojciPanel = new JPanel();
+		sastojciPanel.setSize(200, 200);
+		sastojciPanel.setLayout(new BoxLayout(sastojciPanel, BoxLayout.Y_AXIS));
+		sastojciPanel.add(new JLabel("Sastojci:"));
+		aparatiPanel = new JPanel();
+		aparatiPanel.setLayout(new BoxLayout(aparatiPanel, BoxLayout.Y_AXIS));
+		aparatiPanel.add(new JLabel("aparati"));
+		
+		center = new JPanel();
+		center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
+		
+		JScrollPane scrollSastojci = new JScrollPane(sastojciPanel);
+		scrollSastojci.setPreferredSize(new Dimension(200, 150));
 		this.model = model;
-		int i = 0,j= 0;
-		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {
-			
+		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {	
 			JCheckBox check = new JCheckBox(sastojak.getNaziv());
-			left.add(check,i,j);
-			if(j++>3)
-			{
-				j = 0;
-				i++;
-			}
+			sastojciPanel.add(check);
+		}
+		for (Aparat aparat : Aplikacija.aplikacija.getAparati()) {	
+			JCheckBox check = new JCheckBox(aparat.getNaziv());
+			aparatiPanel.add(check);
 		}
 		BufferedImage image;
-		JButton btTest;
 
-			//image = ImageIO.read(new File("./src/download.jpg"));
-			//btTest = new JButton(new ImageIcon(image));
-			btTest = new JButton("recept 1");
-			btTest.setSize(120,120);
-
-			btTest.setBorderPainted(false);
-			center.add(btTest,0,0);
-
+		//image = ImageIO.read(new File("./src/download.jpg"));
+		//btTest = new JButton(new ImageIcon(image));
+		 JButton btTest = new JButton("recept 1");
 		JButton btTest2 = new JButton("Primer recepta2");
 		JButton btTest3 = new JButton("Primer recepta3");
+		JButton btTest4 = new JButton("recept 4");
+		JButton btTest5 = new JButton("Primer recepta5");
+		JButton btTest6 = new JButton("Primer recepta6");
+		noviReceptiPanel.add(btTest);
+		noviReceptiPanel.add(btTest2);
+		noviReceptiPanel.add(btTest3);
+		popularniReceptiPanel.add(btTest4);
+		popularniReceptiPanel.add(btTest5);
+		popularniReceptiPanel.add(btTest6);
 
-		btTest2.setBackground(Color.BLUE);
-		btTest3.setBackground(Color.CYAN);
+		center.add(noviReceptiPanel);
+		center.add(popularniReceptiPanel);
+		
+		
 
 		btSearch = new JButton("search");
-		center.add(btTest2,0,1);
-		center.add(btTest3,0,2);
+		
 
 		SearchListen searchListen = new SearchListen();
 		btSearch.addActionListener(searchListen);
 		textSearch = new JTextField("Unesite naziv recepta", 20);
+		upper.add(Box.createHorizontalGlue());
 		upper.add(textSearch);
 		upper.add(btSearch);
 		
@@ -106,13 +116,18 @@ public class FrontPageView extends JPanel implements Observer{
 		btRegister.addActionListener(regListen);
 		if(Aplikacija.aplikacija.getTrenutniKorisnik() == null)
 		{
-			upper.add(btLogIn,BorderLayout.NORTH);
-			upper.add(btRegister,BorderLayout.NORTH);
+			upper.add(btLogIn);
+			upper.add(btRegister);
 		}
 		else
 		{
-			upper.add(btLogOut,BorderLayout.NORTH);
+			upper.add(btLogOut);
 		}
+		left.add(scrollSastojci);
+		left.add(aparatiPanel);
+		add(upper,new MyGridBagConstraints(1, 0, 9, 1));
+		add(left,new MyGridBagConstraints(0, 1, 2, 9));
+		add(center,new MyGridBagConstraints(3, 2, 3, 2));
 		setVisible(true);
 	}
 
