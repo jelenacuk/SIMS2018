@@ -41,7 +41,7 @@ public class Main {
 		Aplikacija app = new Aplikacija();
 		SastojakServis sasServ = new SastojakServis();
 		try {
-			app.setSastojci(sasServ.ucitaj("C:\\Users\\Mile\\git\\SIMS2018\\src\\Files\\sastojci.txt"));
+			app.setSastojci(sasServ.ucitaj("./src/Files/sastojci.txt"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
