@@ -1,5 +1,6 @@
 package view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import dataClasses.Aplikacija;
@@ -16,6 +17,8 @@ import java.awt.LayoutManager;
 import java.awt.Scrollbar;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -64,16 +67,24 @@ public class FrontPageView extends JPanel implements Observer{
 				i++;
 			}
 		}
-		JButton btTest = new JButton("Primer recepta1");
+		BufferedImage image;
+		JButton btTest;
+
+			//image = ImageIO.read(new File("./src/download.jpg"));
+			//btTest = new JButton(new ImageIcon(image));
+			btTest = new JButton("recept 1");
+			btTest.setSize(120,120);
+
+			btTest.setBorderPainted(false);
+			center.add(btTest,0,0);
+
 		JButton btTest2 = new JButton("Primer recepta2");
 		JButton btTest3 = new JButton("Primer recepta3");
 
-		btTest.setBackground(Color.YELLOW);
 		btTest2.setBackground(Color.BLUE);
 		btTest3.setBackground(Color.CYAN);
 
 		btSearch = new JButton("search");
-		center.add(btTest,0,0);
 		center.add(btTest2,0,1);
 		center.add(btTest3,0,2);
 

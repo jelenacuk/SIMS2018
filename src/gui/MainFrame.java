@@ -37,6 +37,5 @@ public void initGUI(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FrontPageView view = new FrontPageView(model);
 		add(view);
-		pack();
 	}
 }
