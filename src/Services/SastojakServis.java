@@ -16,7 +16,7 @@ public class SastojakServis {
 	}
 	
 
-	public void ucitaj(String nazivFajla) throws IOException {
+	public ArrayList<Sastojak> ucitaj(String nazivFajla) throws IOException {
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
 		String line = "";
 		while ( (line = bf.readLine()) != null ) {
@@ -29,6 +29,7 @@ public class SastojakServis {
 			sastojci.add(sastojak);
 		}
 		bf.close();
+		return sastojci;
 	}
 	
 	public ArrayList<Sastojak> getSastojci() {

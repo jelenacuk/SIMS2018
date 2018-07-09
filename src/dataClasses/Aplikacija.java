@@ -15,6 +15,11 @@ public class Aplikacija {
 	
 	
 	public Aplikacija() {
+		sastojci = new ArrayList<>();
+		recepti = new ArrayList<>();
+		kategorije = new ArrayList<>();
+		aparati = new ArrayList<>();
+		korisnici = new ArrayList<>();
 		if (aplikacija == null)
 		{
 			aplikacija = this;
