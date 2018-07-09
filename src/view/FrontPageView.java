@@ -3,28 +3,18 @@ package view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.sun.prism.Image;
-
 import Services.MyGridBagConstraints;
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
 import dataClasses.Sastojak;
 import model.FrontPageModel;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.Scrollbar;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
