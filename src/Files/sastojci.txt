@@ -1,12 +1,12 @@
-0|Luk| |
-1|Krastavci| |
-2|Pavlaka| |
-3|Majonez| |
-4|Kecap| |
-5|So| |
-6|Biber| |
-7|Brasno| |
-8|Secer| |
-9|Vanilin Secer| |
-10|Margarin| |
-11|Mleko| |
+0|Luk| 
+1|Krastavci| 
+2|Pavlaka| 
+3|Majonez| 
+4|Kecap| 
+5|So| 
+6|Biber| 
+7|Brasno| 
+8|Secer| 
+9|Vanilin Secer| 
+10|Margarin| 
+11|Mleko| 
