@@ -32,8 +32,8 @@ public class KomentarServis {
 			Komentar komentar = new Komentar(idKomentara, tekst, datum, korisnik);
 			
 			komentari.add(komentar);
-			bf.close();
 		}
+		bf.close();
 	}
 	
 	

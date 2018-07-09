@@ -34,7 +34,7 @@ public class Main {
 		for (String k : korisnici.getKorisnici().keySet()) {
 			System.out.println(korisnici.getKorisnici().get(k));
 		}
-		
+		korisnici.upisiKorisnike("./src/Files/korisnici.txt");
 	}
 	
 
