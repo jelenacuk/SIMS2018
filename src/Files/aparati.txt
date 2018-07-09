@@ -1,12 +1,12 @@
-0|Mikser| |
-1|Toster| |
-2|Blender| |
-3|Friteza| |
-4|Sokovnik| |
-5|Seckalica|  |
-6|Sporet| |
-7|Mikrotalasna| |
-8|Mini pekara| |
-9|Elektricni rostilj| |
-10|Masina za mlevenje mesa| |
-11|Aparat za kafu| |
+0|Mikser| 
+1|Toster| 
+2|Blender| 
+3|Friteza| 
+4|Sokovnik| 
+5|Seckalica|  
+6|Sporet| 
+7|Mikrotalasna| 
+8|Mini pekara| 
+9|Elektricni rostilj| 
+10|Masina za mlevenje mesa| 
+11|Aparat za kafu| 

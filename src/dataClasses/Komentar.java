@@ -7,22 +7,22 @@ public class Komentar {
 	private String tekst;
 	private Date datum;
 	private Korisnik korisnik;
-	public Komentar(int idKomentara,String tekst, Date datum, Korisnik korisnik) {
+
+	public Komentar(int idKomentara, String tekst, Date datum, Korisnik korisnik) {
 		super();
 		this.idKomentara = idKomentara;
 		this.tekst = tekst;
 		this.datum = datum;
 		this.korisnik = korisnik;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		String line = "Datum: " + datum + "\nKorisnik: " + korisnik.toString() + "\nTekst: " + tekst + "\n";
 		return line;
-		
+
 	}
-	
+
 	public int getIdKomentara() {
 		return idKomentara;
 	}
@@ -34,21 +34,25 @@ public class Komentar {
 	public String getTekst() {
 		return tekst;
 	}
+
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
 	}
+
 	public Date getDatum() {
 		return datum;
 	}
+
 	public void setDatum(Date datum) {
 		this.datum = datum;
 	}
+
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
+
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 	}
-	
-	
+
 }

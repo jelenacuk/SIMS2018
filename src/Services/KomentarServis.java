@@ -2,7 +2,9 @@ package Services;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class KomentarServis {
 	public  SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
 	
 	public KomentarServis() {
-		komentari = new ArrayList<Komentar>();
+		this.komentari = new ArrayList<Komentar>();
 	}
 	
 	public void ucitaj(String nazivFajla, HashMap<String, Korisnik> korisnici) throws IOException, ParseException {
@@ -27,13 +29,24 @@ public class KomentarServis {
 			String[] podaci = line.split("\\|");
 			int idKomentara = Integer.parseInt(podaci[0]);
 			String tekst = podaci[1];
-			Date datum = sdf.parse(podaci[2]);
+			Date datum = this.sdf.parse(podaci[2]);
 			Korisnik korisnik = nadjiKorisnika(korisnici, podaci[3]);
 			Komentar komentar = new Komentar(idKomentara, tekst, datum, korisnik);
 			
-			komentari.add(komentar);
+			this.komentari.add(komentar);
 		}
 		bf.close();
+	}
+	
+	public void upisiKomentare(String nazivFajla) throws IOException {
+		PrintWriter upisiKomentar = new PrintWriter(new FileWriter(nazivFajla));
+		for(Komentar kom : this.komentari) {
+			String strZaUpis = kom.getIdKomentara() + "|" + kom.getTekst() + "|"
+					+ this.sdf.format(kom.getDatum()) + "|" + kom.getKorisnik().getUsername();
+			
+			upisiKomentar.println(strZaUpis);
+		}
+		upisiKomentar.close();
 	}
 	
 	
@@ -46,7 +59,7 @@ public class KomentarServis {
 	}
 
 	public ArrayList<Komentar> getKomentari() {
-		return komentari;
+		return this.komentari;
 	}
 
 	public void setKomentari(ArrayList<Komentar> komentari) {

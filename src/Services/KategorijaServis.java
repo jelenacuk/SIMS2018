@@ -2,7 +2,9 @@ package Services;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import dataClasses.Kategorija;
 
@@ -27,6 +29,16 @@ public class KategorijaServis {
 			kategorije.add(kategorija);
 		}
 		bf.close();
+	}
+	
+	public void upisiKategorije(String nazivFajla) throws IOException {
+		PrintWriter upisiKategoriju = new PrintWriter(new FileWriter(nazivFajla));
+		for(Kategorija kat : this.kategorije) {
+			String strZaUpis = kat.getIdKategorije() + "|" + kat.getNaziv();
+			
+			upisiKategoriju.println(strZaUpis);
+		}
+		upisiKategoriju.close();
 	}
 
 	public ArrayList<Kategorija> getKategorije() {
