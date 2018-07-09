@@ -33,11 +33,11 @@ public class MainFrame extends JFrame{
 public void initGUI(){
 		setTitle("Dine");
 		setSize(800,600);
+		setPreferredSize(new Dimension(800, 600));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FrontPageView view = new FrontPageView(model);
 		setResizable(false);
 		add(view);
-		pack();
 	}
 }

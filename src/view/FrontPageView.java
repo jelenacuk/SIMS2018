@@ -3,6 +3,8 @@ package view;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import com.sun.prism.Image;
+
 import Services.MyGridBagConstraints;
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
@@ -46,23 +48,24 @@ public class FrontPageView extends JPanel implements Observer{
 		setLayout(new GridBagLayout());
 		upper = new JPanel();
 		left = new JPanel();
+		this.setPreferredSize(new Dimension(800, 600));
 		noviReceptiPanel = new JPanel();
-		noviReceptiPanel.setSize(300, 200);
 		popularniReceptiPanel = new JPanel();
 		left.setLayout(new BoxLayout(left, BoxLayout.PAGE_AXIS));
 		sastojciPanel = new JPanel();
-		sastojciPanel.setSize(200, 200);
-		sastojciPanel.setLayout(new BoxLayout(sastojciPanel, BoxLayout.Y_AXIS));
+		sastojciPanel.setLayout(new BoxLayout(sastojciPanel, BoxLayout.PAGE_AXIS));
 		sastojciPanel.add(new JLabel("Sastojci:"));
 		aparatiPanel = new JPanel();
-		aparatiPanel.setLayout(new BoxLayout(aparatiPanel, BoxLayout.Y_AXIS));
+		aparatiPanel.setLayout(new BoxLayout(aparatiPanel, BoxLayout.PAGE_AXIS));
 		aparatiPanel.add(new JLabel("aparati"));
 		
 		center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
 		
 		JScrollPane scrollSastojci = new JScrollPane(sastojciPanel);
-		scrollSastojci.setPreferredSize(new Dimension(200, 150));
+		scrollSastojci.setPreferredSize(new Dimension(200, 250));
+		JScrollPane scrollAparati = new JScrollPane(aparatiPanel);
+		scrollAparati.setPreferredSize(new Dimension(200, 250));
 		this.model = model;
 		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {	
 			JCheckBox check = new JCheckBox(sastojak.getNaziv());
@@ -72,16 +75,38 @@ public class FrontPageView extends JPanel implements Observer{
 			JCheckBox check = new JCheckBox(aparat.getNaziv());
 			aparatiPanel.add(check);
 		}
-		BufferedImage image;
-
-		//image = ImageIO.read(new File("./src/download.jpg"));
-		//btTest = new JButton(new ImageIcon(image));
-		 JButton btTest = new JButton("recept 1");
-		JButton btTest2 = new JButton("Primer recepta2");
-		JButton btTest3 = new JButton("Primer recepta3");
-		JButton btTest4 = new JButton("recept 4");
-		JButton btTest5 = new JButton("Primer recepta5");
-		JButton btTest6 = new JButton("Primer recepta6");
+		BufferedImage image = new BufferedImage(100, 100, 11);
+		try {
+			image = ImageIO.read(new File("./src/download.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JButton btTest = new JButton(new ImageIcon(image));
+		btTest.setPreferredSize(new Dimension(100,100));
+		  //btTest = new JButton("recept 1");
+		JButton btTest2 = new JButton(new ImageIcon(image));
+		btTest2.setPreferredSize(new Dimension(100,100));
+		JButton btTest3 = new JButton(new ImageIcon(image));
+		btTest3.setPreferredSize(new Dimension(100,100));
+		JButton btTest4 = new JButton(new ImageIcon(image));
+		btTest4.setPreferredSize(new Dimension(100,100));
+		JButton btTest5 = new JButton(new ImageIcon(image));
+		btTest5.setPreferredSize(new Dimension(100,100));
+		JButton btTest6 = new JButton(new ImageIcon(image));
+		btTest6.setPreferredSize(new Dimension(100,100));
+		
+		JPanel novirecOpste = new JPanel();
+		novirecOpste.add(new JLabel("Najnoviji recepti"));
+		JButton btNoviExpand = new JButton("Prikazi sve");
+		novirecOpste.add(btNoviExpand);
+		
+		JPanel poprecOpste = new JPanel();
+		poprecOpste.add(new JLabel("Najpopularniji recepti"));
+		JButton btPopExpand = new JButton("Prikazi sve");
+		poprecOpste.add(btPopExpand);
+		
+		
 		noviReceptiPanel.add(btTest);
 		noviReceptiPanel.add(btTest2);
 		noviReceptiPanel.add(btTest3);
@@ -89,7 +114,9 @@ public class FrontPageView extends JPanel implements Observer{
 		popularniReceptiPanel.add(btTest5);
 		popularniReceptiPanel.add(btTest6);
 
+		center.add(novirecOpste);
 		center.add(noviReceptiPanel);
+		center.add(poprecOpste);
 		center.add(popularniReceptiPanel);
 		
 		
@@ -124,7 +151,7 @@ public class FrontPageView extends JPanel implements Observer{
 			upper.add(btLogOut);
 		}
 		left.add(scrollSastojci);
-		left.add(aparatiPanel);
+		left.add(scrollAparati);
 		add(upper,new MyGridBagConstraints(1, 0, 9, 1));
 		add(left,new MyGridBagConstraints(0, 1, 2, 9));
 		add(center,new MyGridBagConstraints(3, 2, 3, 2));

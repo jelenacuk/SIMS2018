@@ -42,6 +42,7 @@ public class Main {
 		SastojakServis sasServ = new SastojakServis();
 		try {
 			app.setSastojci(sasServ.ucitaj("./src/Files/sastojci.txt"));
+			app.setAparati(aparati.getAparati());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
