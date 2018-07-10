@@ -19,8 +19,10 @@ public class Recept {
 	private ArrayList<KolicinaSastojka> neophodniSastojci;
 	private ArrayList<KolicinaSastojka> opcioniSastojci;
 	private ArrayList<Komentar> komentari;
+	private String slika;
 	public Recept() {
 		super();
+		slika = "./src/download.jpg";
 	}
 	public Recept(int idRecepta,String naziv, String opis, String tekst, int brLajkova, int brDislajkova, Date datumObjave,
 			boolean suspendovan, Kategorija kategorija, Korisnik korisnik, ArrayList<Aparat> neophodniAparati,
@@ -42,7 +44,9 @@ public class Recept {
 		this.neophodniSastojci = neophodniSastojci;
 		this.opcioniSastojci = opcioniSastojci;
 		this.komentari = komentari;
+		slika = "./src/download.jpg";
 	}
+	
 	
 	public int getIdRecepta() {
 		return idRecepta;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Korisnik {
+	private String ime;
+	private String prezime;
 	private String username;
 	private String password;
 	private int brojacLajkova;
@@ -18,6 +20,18 @@ public class Korisnik {
 	public Korisnik() {
 		super();
 	}
+
+	
+	public Korisnik(String ime, String prezime, String username, String password, int brojacLajkova,
+			VrstaKorisnika vrstaKorisnika, TitulaKorisnika titula, ArrayList<Recept> recepti,
+			ArrayList<KolicinaSastojka> kolicinaSastojaka, ArrayList<Recept> lajkovaniRecepti,
+			ArrayList<Recept> dislajkovaniRecepti, ArrayList<Aparat> aparati) {
+		this( username,  password,  brojacLajkova,  vrstaKorisnika, titula, recepti,  kolicinaSastojaka,
+				 lajkovaniRecepti,  dislajkovaniRecepti,  aparati);
+		this.ime = ime;
+		this.prezime = prezime;
+	}
+
 
 	public Korisnik(String username, String password, int brojacLajkova, VrstaKorisnika vrstaKorisnika,
 			TitulaKorisnika titula, ArrayList<Recept> recepti, ArrayList<KolicinaSastojka> kolicinaSastojaka,
@@ -154,5 +168,26 @@ public class Korisnik {
 		}
 		return false;
 	}
+
+
+	public String getIme() {
+		return ime;
+	}
+
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+
+	public String getPrezime() {
+		return prezime;
+	}
+
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+	
 
 }

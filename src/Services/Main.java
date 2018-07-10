@@ -3,6 +3,7 @@ package Services;
 import java.io.IOException;
 import java.text.ParseException;
 import dataClasses.Aplikacija;
+import gui.KorisnikFrame;
 import gui.MainFrame;
 
 public class Main {
@@ -59,14 +60,16 @@ public class Main {
 		Aplikacija app = new Aplikacija();
 		SastojakServis sasServ = new SastojakServis();
 		try {
-			app.setSastojci(sasServ.ucitaj("./src/Files/sastojci.txt"));
-			app.setAparati(aparati.getAparati());
+			Aplikacija.aplikacija.setSastojci(sasServ.ucitaj("./src/Files/sastojci.txt"));
+			Aplikacija.aplikacija.setAparati(aparati.getAparati());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Aplikacija.aplikacija.setTrenutniKorisnik(korisnici.getKorisnici().get("pera"));
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
+		KorisnikFrame k = new KorisnikFrame();
 	}
 
 }

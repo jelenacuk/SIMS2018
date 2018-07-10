@@ -18,7 +18,16 @@ public class Aplikacija {
 	
 	
 	public Aplikacija() {
-		
+		if (aplikacija == null)
+		{
+			aplikacija = this;
+		}
+		sastojci = new ArrayList<>();
+		aparati = new ArrayList<>();
+		kategorije = new ArrayList<>();
+		recepti = new ArrayList<>();
+		korisnici = new ArrayList<>();
+		trenutniKorisnik = null;
 	}
 
 	public Aplikacija(ArrayList<Sastojak> sastojci, ArrayList<Recept> recepti, ArrayList<Kategorija> kategorije,
