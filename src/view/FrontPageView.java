@@ -16,6 +16,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
@@ -35,11 +36,16 @@ public class FrontPageView extends JPanel implements Observer{
 	JPanel center,noviReceptiPanel,popularniReceptiPanel;
 	JButton btNoviExpand, btPopExpand;
 	ImagePanel nov1,nov2,nov3,pop1,pop2,pop3;
-	HashMap<Sastojak, JCheckBox> sastojciDugmad;  // veza izmedju sastojaka i dugmadi, kako bi znali koji su sastojci selektovani
+	ArrayList<JCheckBox> sastojciDugmad,aparatiDugmad;
+	HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
+	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
 	public FrontPageView(FrontPageModel model)
 	{
 		Controller control = new Controller();
-
+		sastojciDugmad = new ArrayList<>();
+		aparatiDugmad = new ArrayList<>();
+		mapaDugmeSastojak = new HashMap<>();
+		mapaDugmeAparat = new HashMap<>();
 		setLayout(new GridBagLayout());
 		upper = new JPanel();
 		left = new JPanel();
@@ -64,11 +70,17 @@ public class FrontPageView extends JPanel implements Observer{
 		this.model = model;
 		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {	
 			JCheckBox check = new JCheckBox(sastojak.getNaziv());
+			sastojciDugmad.add(check);
 			sastojciPanel.add(check);
+			check.addActionListener(control);
+			mapaDugmeSastojak.put(check, sastojak);
 		}
 		for (Aparat aparat : Aplikacija.aplikacija.getAparati()) {	
 			JCheckBox check = new JCheckBox(aparat.getNaziv());
+			aparatiDugmad.add(check);
 			aparatiPanel.add(check);
+			check.addActionListener(control);
+			mapaDugmeAparat.put(check, aparat);
 		}
 		BufferedImage image = new BufferedImage(100, 100, 11);
 		try {
@@ -199,6 +211,37 @@ public class FrontPageView extends JPanel implements Observer{
 			else if(obj.getSource() == pop3.getButton())
 			{
 				System.out.println("Popularni recept3");
+			}
+			else {
+				for (JCheckBox aparatDugme : aparatiDugmad) {
+					if(aparatDugme == obj.getSource())
+					{
+						if (aparatDugme.isSelected())
+						{
+							model.addSelektovanAparat(mapaDugmeAparat.get(aparatDugme));
+						}
+						else
+						{
+							model.removeSelektovanAparat(mapaDugmeAparat.get(aparatDugme));
+						}
+						break;
+					}
+				}
+				for (JCheckBox sastojakDugme : sastojciDugmad) {
+					if(sastojakDugme == obj.getSource())
+					{
+						if (sastojakDugme.isSelected())
+						{
+							model.addSelektovanAparat(mapaDugmeAparat.get(sastojakDugme));
+						}
+						else
+						{
+							model.removeSelektovanAparat(mapaDugmeAparat.get(sastojakDugme));
+						}
+						break;
+					}
+				}
+				
 			}
 		}
 		
