@@ -7,6 +7,7 @@ import Services.MyGridBagConstraints;
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
 import dataClasses.Sastojak;
+import gui.ImagePanel;
 import model.FrontPageModel;
 
 import java.awt.Dimension;
@@ -32,9 +33,13 @@ public class FrontPageView extends JPanel implements Observer{
 	JPanel upper;
 	JPanel left,sastojciPanel,aparatiPanel;
 	JPanel center,noviReceptiPanel,popularniReceptiPanel;
+	JButton btNoviExpand, btPopExpand;
+	ImagePanel nov1,nov2,nov3,pop1,pop2,pop3;
 	HashMap<Sastojak, JCheckBox> sastojciDugmad;  // veza izmedju sastojaka i dugmadi, kako bi znali koji su sastojci selektovani
 	public FrontPageView(FrontPageModel model)
 	{
+		Controller control = new Controller();
+
 		setLayout(new GridBagLayout());
 		upper = new JPanel();
 		left = new JPanel();
@@ -72,37 +77,32 @@ public class FrontPageView extends JPanel implements Observer{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JButton btTest = new JButton(new ImageIcon(image));
-		btTest.setPreferredSize(new Dimension(100,100));
-		  //btTest = new JButton("recept 1");
-		JButton btTest2 = new JButton(new ImageIcon(image));
-		btTest2.setPreferredSize(new Dimension(100,100));
-		JButton btTest3 = new JButton(new ImageIcon(image));
-		btTest3.setPreferredSize(new Dimension(100,100));
-		JButton btTest4 = new JButton(new ImageIcon(image));
-		btTest4.setPreferredSize(new Dimension(100,100));
-		JButton btTest5 = new JButton(new ImageIcon(image));
-		btTest5.setPreferredSize(new Dimension(100,100));
-		JButton btTest6 = new JButton(new ImageIcon(image));
-		btTest6.setPreferredSize(new Dimension(100,100));
+		nov1 = new ImagePanel("./src/download.jpg","Recept1",control);
+		nov2 = new ImagePanel("./src/download.jpg","Recept2",control);
+		nov3 = new ImagePanel("./src/download.jpg","Recept3",control);
+		pop1 = new ImagePanel("./src/download.jpg","Recept4",control);
+		pop2 = new ImagePanel("./src/download.jpg","Recept5",control);
+		pop3 = new ImagePanel("./src/download.jpg","Recept6",control);
 		
 		JPanel novirecOpste = new JPanel();
 		novirecOpste.add(new JLabel("Najnoviji recepti"));
-		JButton btNoviExpand = new JButton("Prikazi sve");
+		btNoviExpand = new JButton("Prikazi sve");
+		btNoviExpand.addActionListener(control);
 		novirecOpste.add(btNoviExpand);
 		
 		JPanel poprecOpste = new JPanel();
 		poprecOpste.add(new JLabel("Najpopularniji recepti"));
-		JButton btPopExpand = new JButton("Prikazi sve");
+		btPopExpand = new JButton("Prikazi sve");
+		btPopExpand.addActionListener(control);
 		poprecOpste.add(btPopExpand);
 		
 		
-		noviReceptiPanel.add(btTest);
-		noviReceptiPanel.add(btTest2);
-		noviReceptiPanel.add(btTest3);
-		popularniReceptiPanel.add(btTest4);
-		popularniReceptiPanel.add(btTest5);
-		popularniReceptiPanel.add(btTest6);
+		noviReceptiPanel.add(nov1);
+		noviReceptiPanel.add(nov2);
+		noviReceptiPanel.add(nov3);
+		popularniReceptiPanel.add(pop1);
+		popularniReceptiPanel.add(pop2);
+		popularniReceptiPanel.add(pop3);
 
 		center.add(novirecOpste);
 		center.add(noviReceptiPanel);
@@ -114,8 +114,7 @@ public class FrontPageView extends JPanel implements Observer{
 		btSearch = new JButton("search");
 		
 
-		SearchListen searchListen = new SearchListen();
-		btSearch.addActionListener(searchListen);
+		btSearch.addActionListener(control);
 		textSearch = new JTextField("Unesite naziv recepta", 20);
 		upper.add(Box.createHorizontalGlue());
 		upper.add(textSearch);
@@ -123,14 +122,11 @@ public class FrontPageView extends JPanel implements Observer{
 		
 		//Dugmad za registraciju i klase koje reaguju na pritisak dugmeta
 		btLogIn = new JButton("Log In");
-		LogInListener logInListen = new LogInListener();
-		btLogIn.addActionListener(logInListen);
-		LogOutListener logOutListen = new LogOutListener();
+		btLogIn.addActionListener(control);
 		btLogOut = new JButton("Log Out");
-		btLogOut.addActionListener(logOutListen);
+		btLogOut.addActionListener(control);
 		btRegister = new JButton("Register");
-		RegisterListener regListen = new RegisterListener();
-		btRegister.addActionListener(regListen);
+		btRegister.addActionListener(control);
 		if(Aplikacija.aplikacija.getTrenutniKorisnik() == null)
 		{
 			upper.add(btLogIn);
@@ -153,39 +149,59 @@ public class FrontPageView extends JPanel implements Observer{
 		// TODO Auto-generated method stub
 		
 	}
-	private class LogInListener implements ActionListener{
+	private class Controller implements ActionListener{
 
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("log in");
-			
+		public void actionPerformed(ActionEvent obj) {
+			if(obj.getSource() == btLogIn)
+			{
+				System.out.println("log in");
+			}
+			else if(obj.getSource() == btRegister)
+			{
+				System.out.println("reg");
+			}
+			else if(obj.getSource() == btLogOut) {
+				System.out.println("log out");
+			}
+			else if(obj.getSource() == btSearch)
+			{
+				System.out.println("Search");
+			}
+			else if(obj.getSource() == btNoviExpand)
+			{
+				System.out.println("Prikazi nove recepte");
+			}
+			else if(obj.getSource() == btPopExpand)
+			{
+				System.out.println("Prikazi popularne recepte");
+			}
+			else if(obj.getSource() == nov1.getButton())
+			{
+				System.out.println("Novi recept1");
+			}
+			else if(obj.getSource() == nov2.getButton())
+			{
+				System.out.println("Novi recept2");
+			}
+			else if(obj.getSource() == nov3.getButton())
+			{
+				System.out.println("Novi recept3");
+			}
+			else if(obj.getSource() == pop1.getButton())
+			{
+				System.out.println("Popularni recept1");
+			}
+			else if(obj.getSource() == pop2.getButton())
+			{
+				System.out.println("Popularni recept2");
+			}
+			else if(obj.getSource() == pop3.getButton())
+			{
+				System.out.println("Popularni recept3");
+			}
 		}
 		
 	}
-	private class LogOutListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("log Out");
-		}
-		
-	}
-	private class RegisterListener implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("reg");
-			
-		}
-		
-	}
-	private class SearchListen implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("reg");
-			
-		}
-		
-	}
+	
 }
