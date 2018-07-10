@@ -19,7 +19,6 @@ public class UnosReceptaModel {
 		recept.setBrDislajkova(0);
 		recept.setBrDislajkova(0);
 		recept.setDatumObjave(new Date());
-		
 		recept.setKomentari(new ArrayList<Komentar>());
 		recept.setNaziv(naziv);
 		recept.setTekst(tekst);
