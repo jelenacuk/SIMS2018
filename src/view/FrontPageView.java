@@ -8,6 +8,8 @@ import dataClasses.Aparat;
 import dataClasses.Aplikacija;
 import dataClasses.Sastojak;
 import gui.ImagePanel;
+import gui.KorisnikFrame;
+import gui.UnosRecepataFrame;
 import model.FrontPageModel;
 
 import java.awt.Dimension;
@@ -26,7 +28,7 @@ public class FrontPageView extends JPanel implements Observer{
 	JButton btLogIn;
 	JButton btRegister;
 	JButton btLogOut;
-	
+	JButton btProfil;
 	//pretraga i filteri
 	JButton btSearch;
 	JTextField textSearch;
@@ -39,6 +41,7 @@ public class FrontPageView extends JPanel implements Observer{
 	ArrayList<JCheckBox> sastojciDugmad,aparatiDugmad;
 	HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
 	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
+	JButton btDodajRecept;
 	public FrontPageView(FrontPageModel model)
 	{
 		Controller control = new Controller();
@@ -64,9 +67,9 @@ public class FrontPageView extends JPanel implements Observer{
 		center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
 		
 		JScrollPane scrollSastojci = new JScrollPane(sastojciPanel);
-		scrollSastojci.setPreferredSize(new Dimension(200, 250));
+		scrollSastojci.setPreferredSize(new Dimension(180, 200));
 		JScrollPane scrollAparati = new JScrollPane(aparatiPanel);
-		scrollAparati.setPreferredSize(new Dimension(200, 250));
+		scrollAparati.setPreferredSize(new Dimension(180, 200));
 		this.model = model;
 		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {	
 			JCheckBox check = new JCheckBox(sastojak.getNaziv());
@@ -146,7 +149,17 @@ public class FrontPageView extends JPanel implements Observer{
 		}
 		else
 		{
+			btProfil = new JButton("Profil");
+			btProfil.addActionListener(control);
+			upper.add(btProfil);
 			upper.add(btLogOut);
+		}
+		if (Aplikacija.aplikacija.getTrenutniKorisnik() != null)
+		{
+			btDodajRecept = new JButton("Dodaj recept");
+			btDodajRecept.addActionListener(control);
+			left.add(btDodajRecept);
+			
 		}
 		left.add(scrollSastojci);
 		left.add(scrollAparati);
@@ -168,6 +181,10 @@ public class FrontPageView extends JPanel implements Observer{
 			if(obj.getSource() == btLogIn)
 			{
 				System.out.println("log in");
+			}
+			else if(obj.getSource() == btDodajRecept)
+			{
+				UnosRecepataFrame r = new UnosRecepataFrame();
 			}
 			else if(obj.getSource() == btRegister)
 			{
@@ -211,6 +228,9 @@ public class FrontPageView extends JPanel implements Observer{
 			else if(obj.getSource() == pop3.getButton())
 			{
 				System.out.println("Popularni recept3");
+			}
+			else if(obj.getSource() == btProfil) {
+				new KorisnikFrame();
 			}
 			else {
 				for (JCheckBox aparatDugme : aparatiDugmad) {

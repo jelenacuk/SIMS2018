@@ -70,10 +70,8 @@ public class Main {
 		}
 		Aplikacija.aplikacija.setTrenutniKorisnik(korisnici.getKorisnici().get("pera"));
 		MainFrame mf = MainFrame.getInstance();
-		mf.setVisible(true);
-		KorisnikFrame k = new KorisnikFrame();
+		mf.setVisible(true);		
 		
-		UnosRecepataFrame r = new UnosRecepataFrame();
 	}
 
 }

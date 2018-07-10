@@ -139,6 +139,12 @@ public class Recept {
 	public void setKomentari(ArrayList<Komentar> komentari) {
 		this.komentari = komentari;
 	}
+	public String getSlika() {
+		return slika;
+	}
+	public void setSlika(String slika) {
+		this.slika = slika;
+	}
 	
 	
 	
