@@ -1,6 +1,9 @@
 package dataClasses;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import model.UnosReceptaModel;
 
 public class Aplikacija {
 	
@@ -15,15 +18,7 @@ public class Aplikacija {
 	
 	
 	public Aplikacija() {
-		sastojci = new ArrayList<>();
-		recepti = new ArrayList<>();
-		kategorije = new ArrayList<>();
-		aparati = new ArrayList<>();
-		korisnici = new ArrayList<>();
-		if (aplikacija == null)
-		{
-			aplikacija = this;
-		}
+		
 	}
 
 	public Aplikacija(ArrayList<Sastojak> sastojci, ArrayList<Recept> recepti, ArrayList<Kategorija> kategorije,
@@ -40,8 +35,10 @@ public class Aplikacija {
 		this.trenutniKorisnik = trenutniKorisnik;
 	}
 
-	public void dodajRecept() {
-	      // TODO: implement
+	public void dodajRecept(Recept noviRecept) {
+		recepti.add(noviRecept);
+		trenutniKorisnik.getRecepti().add(noviRecept);
+		
 	   }
 	   
 	   public void izbrisiRecept() {
