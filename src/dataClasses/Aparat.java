@@ -12,6 +12,7 @@ public class Aparat {
 	
 	
 	public Aparat(int id, String naziv, String opis) {
+		
 		super();
 		this.idAparata = id;
 		this.naziv = naziv;
