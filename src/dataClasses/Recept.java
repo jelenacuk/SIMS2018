@@ -23,6 +23,7 @@ public class Recept {
 	public Recept() {
 		super();
 		slika = "./src/download.jpg";
+		
 	}
 	public Recept(int idRecepta,String naziv, String opis, String tekst, int brLajkova, int brDislajkova, Date datumObjave,
 			boolean suspendovan, Kategorija kategorija, Korisnik korisnik, ArrayList<Aparat> neophodniAparati,
