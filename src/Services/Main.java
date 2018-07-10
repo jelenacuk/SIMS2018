@@ -5,6 +5,8 @@ import java.text.ParseException;
 import dataClasses.Aplikacija;
 import gui.KorisnikFrame;
 import gui.MainFrame;
+import gui.UnosRecepataFrame;
+import view.UnosRecepataView;
 
 public class Main {
 
@@ -70,6 +72,8 @@ public class Main {
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
 		KorisnikFrame k = new KorisnikFrame();
+		
+		UnosRecepataFrame r = new UnosRecepataFrame();
 	}
 
 }
