@@ -13,6 +13,7 @@ public class UnosReceptaModel {
 	
 	
 	public void unos(String naziv, String tekst) {
+		
 		Recept recept = new Recept();
 		recept.setIdRecepta(Aplikacija.aplikacija.getRecepti().size());
 		recept.setBrDislajkova(0);
