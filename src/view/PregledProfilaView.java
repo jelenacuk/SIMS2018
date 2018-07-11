@@ -13,12 +13,14 @@ public class PregledProfilaView extends JPanel {
 	public PregledProfilaView() {
 		if (Aplikacija.aplikacija.getTrenutniKorisnik() != null)
 		{
+			//Preuzima informacije iz aplikacije i krira labele
 			this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 			ime = new JLabel(Aplikacija.aplikacija.getTrenutniKorisnik().getIme());
 			prezime = new JLabel(Aplikacija.aplikacija.getTrenutniKorisnik().getPrezime());
 			brLajkova = new JLabel(Integer.toString(Aplikacija.aplikacija.getTrenutniKorisnik().getBrojacLajkova()));
 			titula = new JLabel(Aplikacija.aplikacija.getTrenutniKorisnik().getTitula().toString());
 			
+			//dodaje labele u panel
 			add(ime);
 			add(prezime);
 			add(brLajkova);
