@@ -54,7 +54,7 @@ public class KomentarServis {
 		 * korisnici.get(username); }
 		 */
 		for (Korisnik k : korisnici) {
-			if (k.getUsername() == username) {
+			if (username.equals(k.getUsername())) {
 				return k;
 			}
 		}
