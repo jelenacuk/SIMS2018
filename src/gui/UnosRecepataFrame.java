@@ -15,4 +15,5 @@ public class UnosRecepataFrame extends JFrame {
 		this.setSize(600, 600);
 		this.setVisible(true);
 	}
+	
 }

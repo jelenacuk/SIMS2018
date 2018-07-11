@@ -18,30 +18,37 @@ import javax.swing.JTextField;
 
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
+import dataClasses.KolicinaSastojka;
 import dataClasses.Sastojak;
+import model.UnosReceptaModel;
 
 
 
 public class UnosRecepataView extends JPanel{
 	
+	private UnosReceptaModel unosReceptaModel;
 	
-	private JLabel   izborAparata;
 	private JPanel panelSastojci, panelAparati, panelDugmici;
 	private JTextArea tekst;
-	private JButton dodajSastojak, dodajAparat,objavi, odustani;
+	JTextField naziv;
+	private JButton dodajSastojak, dodajAparat, objavi, odustani;
 	ArrayList<JCheckBox> sastojciDugmad,aparatiDugmad;
 	HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
+	HashMap<JCheckBox, JTextField> mapaDugmeKolicinaSastojka;
 	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
 	
 	
 	public UnosRecepataView() {
+		
+		Controller control = new Controller();
+		unosReceptaModel = new UnosReceptaModel();
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		this.add(Box.createRigidArea(new Dimension(0, 20)));
 		JLabel nazivRecepta = new JLabel("Naziv Recepta: ");
 		this.add(nazivRecepta);
-		JTextField naziv = new JTextField();
+		naziv = new JTextField();
 		naziv.setPreferredSize(new Dimension(10, 20));
 		naziv.setMaximumSize(new Dimension(1000, 20));
 		this.add(naziv);
@@ -67,6 +74,7 @@ public class UnosRecepataView extends JPanel{
 		//IZBOR SASTOJAKA I DUGME ZA DODAVAMJE NOVIH SASTOJAKA
 		sastojciDugmad = new ArrayList<JCheckBox>();
 		mapaDugmeSastojak = new HashMap<JCheckBox, Sastojak>();
+		mapaDugmeKolicinaSastojka = new HashMap<JCheckBox, JTextField>();
 		JPanel panelZaSastojkeIDugme = new JPanel();
 		panelZaSastojkeIDugme.setLayout(new BoxLayout(panelZaSastojkeIDugme, BoxLayout.X_AXIS));
 		
@@ -81,15 +89,23 @@ public class UnosRecepataView extends JPanel{
 		scrollSastojci.setPreferredSize(new Dimension(200, 200));
 		scrollSastojci.setMaximumSize(new Dimension(200, 200));
 		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {	
+			JPanel stavka = new JPanel();
+			stavka.setLayout(new BoxLayout(stavka, BoxLayout.X_AXIS));
 			JCheckBox check = new JCheckBox(sastojak.getNaziv());
 			sastojciDugmad.add(check);
-			panelSastojci.add(check);
-			//check.addActionListener(control);
+			stavka.add(check);
+			JTextField kolicina = new JTextField("kolicina");
+			stavka.add(kolicina);
+			panelSastojci.add(stavka);
+			check.addActionListener(control);
 			mapaDugmeSastojak.put(check, sastojak);
+			mapaDugmeKolicinaSastojka.put(check, kolicina);
+			
 		}
 		panelZaSastojkeIDugme.add(scrollSastojci);
 		panelZaSastojkeIDugme.add(Box.createRigidArea(new Dimension(50,0)));
 		dodajSastojak = new JButton("Dodaj sastojak");
+		dodajSastojak.addActionListener(control);
 		panelZaSastojkeIDugme.add(dodajSastojak);
 		this.add(panelZaSastojkeIDugme);
 		
@@ -104,7 +120,7 @@ public class UnosRecepataView extends JPanel{
 		
 		panelAparati = new JPanel();
 		panelAparati.setLayout(new BoxLayout (panelAparati,BoxLayout.PAGE_AXIS));
-		izborAparata = new JLabel("Izaberi aparate:");
+		JLabel izborAparata = new JLabel("Izaberi aparate:");
 		this.add(izborAparata);
 		this.add(Box.createRigidArea(new Dimension(0,20)));
 		JScrollPane scrollAparati = new JScrollPane(panelAparati,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -114,12 +130,13 @@ public class UnosRecepataView extends JPanel{
 			JCheckBox check = new JCheckBox(aparat.getNaziv());
 			aparatiDugmad.add(check);
 			panelAparati.add(check);
-			//check.addActionListener(control);
+			check.addActionListener(control);
 			mapaDugmeAparat.put(check, aparat);
 		}
 		panelZaAparateIDugme.add(scrollAparati);
 		panelZaAparateIDugme.add(Box.createRigidArea(new Dimension(50,0)));
 		dodajAparat = new JButton("Dodaj aparat");
+		dodajAparat.addActionListener(control);
 		panelZaAparateIDugme.add(dodajAparat);
 		this.add(panelZaAparateIDugme);
 		
@@ -127,15 +144,15 @@ public class UnosRecepataView extends JPanel{
 		panelDugmici = new JPanel();
 		panelDugmici.setLayout( new BoxLayout( panelDugmici, BoxLayout.X_AXIS));
 		objavi = new JButton("Objavi");
+		objavi.addActionListener(control);
 		panelDugmici.add(objavi);
 		panelDugmici.add(Box.createRigidArea(new Dimension(50,0)));
 		odustani = new JButton("Odustani");
+		odustani.addActionListener(control);
 		panelDugmici.add(odustani);
 		
 		this.add(panelDugmici);
-		//objavi.addActionListener(control);
 		
-	
 		
 	}
 	
@@ -147,9 +164,61 @@ public class UnosRecepataView extends JPanel{
 			if(obj.getSource() == objavi)
 			{
 				System.out.println("Objavi");
+				String nazivR = naziv.getText();
+				String tekstR = tekst.getText();
+				unosReceptaModel.unos(nazivR, tekstR);
+			}
+			else if (obj.getSource() == dodajSastojak) {
+				
+				System.out.println("dodaj sastojak");
+			}
+			else if (obj.getSource() == dodajAparat) {
+				
+				System.out.println("dodaj aparat");	
+			}
+			else if (obj.getSource() == odustani) {
+				
+				System.out.println("Odustani");
+				
+				
+			}
+			else {
+				for (JCheckBox sastojakDugme : sastojciDugmad) {
+					if(sastojakDugme == obj.getSource())
+					{
+						if (sastojakDugme.isSelected())
+						{
+							///Problem!!
+							String koliko = mapaDugmeKolicinaSastojka.get(sastojakDugme).getText();
+							KolicinaSastojka kolS = new KolicinaSastojka(1, koliko, mapaDugmeSastojak.get(sastojakDugme));
+							unosReceptaModel.addPotrebanSastojak(kolS);
+						}
+						else
+						{
+							//unosReceptaModel.removePotrebanSastojak(mapaDugmeSastojak.get(sastojakDugme));
+						}
+						break;
+					}
+				}
+				for (JCheckBox aparatDugme : aparatiDugmad) {
+					if(aparatDugme == obj.getSource())
+					{
+						if (aparatDugme.isSelected())
+						{
+							unosReceptaModel.addPotrebanAparat(mapaDugmeAparat.get(aparatDugme));
+						}
+						else
+						{
+							unosReceptaModel.removePotrebanAparat(mapaDugmeAparat.get(aparatDugme));
+						}
+						break;
+					}
+				}
+				
 			}
 			
 		}
+		
 		
 	}
 
