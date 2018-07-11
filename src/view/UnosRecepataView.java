@@ -195,7 +195,7 @@ public class UnosRecepataView extends JPanel{
 						}
 						else
 						{
-							//unosReceptaModel.removePotrebanSastojak(mapaDugmeSastojak.get(sastojakDugme));
+							unosReceptaModel.removePotrebanSastojak(mapaDugmeSastojak.get(sastojakDugme));
 						}
 						break;
 					}

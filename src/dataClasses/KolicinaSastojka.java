@@ -15,6 +15,18 @@ public class KolicinaSastojka {
 	}
 	
 	
+	public KolicinaSastojka(String kolicina, Sastojak sastojak) {
+		super();
+		this.kolicina = kolicina;
+		this.sastojak = sastojak;
+	}
+
+
+	public KolicinaSastojka() {
+		super();
+	}
+
+
 	public int getIdKolicineSastojaka() {
 		return idKolicineSastojaka;
 	}

@@ -53,18 +53,31 @@ public class UnosReceptaModel {
 	
 	public void addPotrebanSastojak(KolicinaSastojka s) {
 		potrebniSastojci.add(s);
+		System.out.println(potrebniSastojci.size());
 	}
 	
-	public void removePotrebanSastojak(KolicinaSastojka s) {
-		potrebniSastojci.remove(s);
+	public void removePotrebanSastojak(Sastojak s) {
+		KolicinaSastojka ks = new KolicinaSastojka();
+		for (KolicinaSastojka kolicinaSastojka : potrebniSastojci) {
+			if (kolicinaSastojka.getSastojak() == s) {
+				ks = kolicinaSastojka;
+				break;
+			}
+		}
+		potrebniSastojci.remove(ks);
+		System.out.println(potrebniSastojci.size());
 	}
 	
 	public void addPotrebanAparat(Aparat a) {
 		potrebniAparati.add(a);
+		System.out.println(potrebniAparati.size());
+
 	}
 	
 	public void removePotrebanAparat(Aparat a) {
 		potrebniAparati.remove(a);
+		System.out.println(potrebniAparati.size());
+
 	}
 
 
