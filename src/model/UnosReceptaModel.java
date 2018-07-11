@@ -57,14 +57,12 @@ public class UnosReceptaModel {
 	}
 	
 	public void removePotrebanSastojak(Sastojak s) {
-		KolicinaSastojka ks = new KolicinaSastojka();
 		for (KolicinaSastojka kolicinaSastojka : potrebniSastojci) {
 			if (kolicinaSastojka.getSastojak() == s) {
-				ks = kolicinaSastojka;
+				potrebniSastojci.remove(kolicinaSastojka);
 				break;
 			}
 		}
-		potrebniSastojci.remove(ks);
 		System.out.println(potrebniSastojci.size());
 	}
 	
