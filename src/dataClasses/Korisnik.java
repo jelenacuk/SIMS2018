@@ -3,6 +3,8 @@ package dataClasses;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.plaf.BorderUIResource.TitledBorderUIResource;
+
 public class Korisnik {
 	private String ime;
 	private String prezime;
@@ -19,6 +21,11 @@ public class Korisnik {
 
 	public Korisnik() {
 		super();
+		recepti = new ArrayList<Recept>();
+		lajkovaniRecepti = new ArrayList<Recept>();
+		dislajkovaniRecepti = new ArrayList<Recept>();
+		aparati = new ArrayList<Aparat>();
+		kolicinaSastojaka = new ArrayList<KolicinaSastojka>();
 	}
 
 	

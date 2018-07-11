@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import dataClasses.Aplikacija;
 import dataClasses.Korisnik;
+import dataClasses.TitulaKorisnika;
+import dataClasses.VrstaKorisnika;
 import gui.KorisnikFrame;
 import gui.MainFrame;
 import gui.UnosRecepataFrame;
@@ -77,6 +79,12 @@ public class Main {
 				Aplikacija.aplikacija.setTrenutniKorisnik(k);
 			}
 		}
+		Korisnik k = new Korisnik();
+		k.setIme("Pera");
+		k.setPrezime("Peric");
+		k.setTitula(TitulaKorisnika.NOVAJLIJA);
+		k.setVrstaKorisnika(VrstaKorisnika.REGULARAN);
+		Aplikacija.aplikacija.setTrenutniKorisnik(k);
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
 
