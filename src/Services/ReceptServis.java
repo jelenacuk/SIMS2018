@@ -22,14 +22,14 @@ import java.util.Map;
 
 public class ReceptServis {
 
-	private HashMap<Integer, Recept> recepti;
+	private ArrayList<Recept> recepti;
 	public SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
 
 	public ReceptServis() {
-		this.recepti = new HashMap<Integer, Recept>();
+		this.recepti = new ArrayList<Recept>();
 	}
 
-	public void ucitaj(String nazivFajla, HashMap<String, Korisnik> korisnici, ArrayList<KolicinaSastojka> sastojci,
+	public void ucitaj(String nazivFajla, ArrayList<Korisnik> korisnici, ArrayList<KolicinaSastojka> sastojci,
 			ArrayList<Aparat> aparati, ArrayList<Kategorija> kategorije, ArrayList<Komentar> komentari)
 			throws IOException, ParseException {
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
@@ -56,7 +56,7 @@ public class ReceptServis {
 					kategorija, korisnik, neophodniAparati, opcioniAparati, neophodniSastojci, opcioniSastojci,
 					komentarii);
 
-			recepti.put(idRecepta, recept);
+			recepti.add(recept);
 
 		}
 		bf.close();
@@ -64,8 +64,7 @@ public class ReceptServis {
 
 	public void upisiRecepte(String nazivFajla) throws IOException {
 		PrintWriter upisiRecept = new PrintWriter(new FileWriter(nazivFajla));
-		for (Map.Entry<Integer, Recept> entry : this.recepti.entrySet()) {
-			Recept rec = entry.getValue();
+		for (Recept rec : recepti) {
 			String strZaUpis = rec.getIdRecepta() + "|" + rec.getNaziv() + "|" + rec.getOpis() + "|" + rec.getTekst()
 					+ "|" + rec.getBrLajkova() + "|" + rec.getBrDislajkova() + "|" + sdf.format(rec.getDatumObjave())
 					+ "|" + rec.isSuspendovan() + "|" + rec.getKategorija().getIdKategorije() + "|"
@@ -169,10 +168,12 @@ public class ReceptServis {
 
 	}
 
-	public Korisnik nadjiKorisnika(HashMap<String, Korisnik> korisnici, String username) {
+	public Korisnik nadjiKorisnika(ArrayList<Korisnik> korisnici, String username) {
 		Korisnik korisnik = null;
-		if (korisnici.containsKey(username)) {
-			korisnik = korisnici.get(username);
+		for (Korisnik kor : korisnici) {
+			if (kor.getUsername() == username) {
+				korisnik = kor;
+			}
 		}
 		return korisnik;
 	}
@@ -221,11 +222,11 @@ public class ReceptServis {
 		return komentar;
 	}
 
-	public HashMap<Integer, Recept> getListaRecepata() {
+	public ArrayList<Recept> getListaRecepata() {
 		return recepti;
 	}
 
-	public void setListaRecepata(HashMap<Integer, Recept> listaRecepata) {
+	public void setListaRecepata(ArrayList<Recept> listaRecepata) {
 		this.recepti = listaRecepata;
 	}
 

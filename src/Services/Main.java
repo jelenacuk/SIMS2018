@@ -18,13 +18,13 @@ public class Main {
 		sastojci.ucitaj("./src/Files/sastojci.txt");
 		kolicineSastojaka.ucitaj("./src/Files/kolicineSastojaka.txt", sastojci.getSastojci());
 		kategorije.ucitaj("./src/Files/kategorije.txt");
-		korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
-				kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
+		//korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
+				//kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
 		komentari.ucitaj("./src/Files/komentari.txt", korisnici.getKorisnici());
-		recepti.ucitaj("./src/Files/recepti.txt", korisnici.getKorisnici(), kolicineSastojaka.getKolicineSastojaka(),
-				aparati.getAparati(), kategorije.getKategorije(), komentari.getKomentari());
-		korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
-				kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
+		//recepti.ucitaj("./src/Files/recepti.txt", korisnici.getKorisnici(), kolicineSastojaka.getKolicineSastojaka(),
+				//aparati.getAparati(), kategorije.getKategorije(), komentari.getKomentari());
+		//korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
+				//kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
 
 	}
 
