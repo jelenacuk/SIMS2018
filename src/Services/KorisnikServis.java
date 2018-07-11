@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import dataClasses.Aparat;
 import dataClasses.KolicinaSastojka;
@@ -25,8 +24,8 @@ public class KorisnikServis {
 	// Metoda za ucitavanje postojecih korisnika iz fajla.
 	// Metoda ucitava podatke, liniju po liniju i za svaku liniju pravi novog
 	// korisnika.
-	public void ucitajKorisnike(String nazivFajla, HashMap<Integer, Recept> recepti,
-			ArrayList<KolicinaSastojka> sastojci, ArrayList<Aparat> aparati) throws IOException {
+	public void ucitajKorisnike(String nazivFajla, ArrayList<Recept> recepti, ArrayList<KolicinaSastojka> sastojci,
+			ArrayList<Aparat> aparati) throws IOException {
 		String trenutnaLinija;
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
 		while ((trenutnaLinija = bf.readLine()) != null) {
@@ -186,10 +185,13 @@ public class KorisnikServis {
 
 	}
 
-	private Recept pronadjiRecept(HashMap<Integer, Recept> recepti, int id) {
+	private Recept pronadjiRecept(ArrayList<Recept> recepti, int id) {
 		Recept pronadjeniRecept = null;
-		if (recepti.containsKey(id)) {
-			pronadjeniRecept = recepti.get(id);
+
+		for (Recept r : recepti) {
+			if (id == r.getIdRecepta()) {
+				pronadjeniRecept = r;
+			}
 		}
 
 		return pronadjeniRecept;
@@ -225,7 +227,5 @@ public class KorisnikServis {
 	public void setKorisnici(ArrayList<Korisnik> korisnici) {
 		this.korisnici = korisnici;
 	}
-
-
 
 }
