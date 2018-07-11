@@ -81,7 +81,10 @@ public class Main {
 		k.setPrezime("Peric");
 		k.setTitula(TitulaKorisnika.NOVAJLIJA);
 		k.setVrstaKorisnika(VrstaKorisnika.REGULARAN);
-		Aplikacija.aplikacija.setTrenutniKorisnik(k);
+		k.setUsername("pera");
+		k.setPassword("peric");
+		//Aplikacija.aplikacija.setTrenutniKorisnik(k);
+		Aplikacija.aplikacija.getKorisnici().add(k);
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
 

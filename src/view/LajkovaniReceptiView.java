@@ -18,6 +18,7 @@ public class LajkovaniReceptiView extends JPanel {
 
 	public LajkovaniReceptiView() {
 		//Podesavanje dimenzija
+		setSize(new Dimension(400, 400));
 		setPreferredSize(new Dimension(600, 600));
 		setMaximumSize(new Dimension(600, 600));
 		

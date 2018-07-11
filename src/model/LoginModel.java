@@ -15,7 +15,6 @@ public class LoginModel {
 				return true;
 			}
 		}
-
 		return false;
 	}
 }

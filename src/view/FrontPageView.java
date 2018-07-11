@@ -10,6 +10,7 @@ import gui.ImagePanel;
 import gui.KorisnikFrame;
 import gui.UnosRecepataFrame;
 import model.FrontPageModel;
+import model.LoginModel;
 
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -185,7 +186,12 @@ public class FrontPageView extends JPanel implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent obj) {
 			if (obj.getSource() == btLogIn) {
-				System.out.println("log in");
+				JFrame loginFrame = new JFrame();
+				loginFrame.setSize(500, 400);
+				LoginModel loginModel = new LoginModel();
+				LoginView loginView = new LoginView(loginModel,loginFrame);
+				loginFrame.add(loginView);
+				loginFrame.setVisible(true);
 			} else if (obj.getSource() == btDodajRecept) {
 				UnosRecepataFrame r = new UnosRecepataFrame();
 			} else if (obj.getSource() == btRegister) {

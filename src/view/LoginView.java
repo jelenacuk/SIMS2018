@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,8 +19,13 @@ public class LoginView extends JPanel {
 	private JTextField username, password;
 	private JButton potvrdi, odustani;
 	private JLabel greskaLabela;
-
-	public LoginView(LoginModel model) {
+	private LoginView view;
+	private JFrame parentWindow;
+	public LoginView(LoginModel model,JFrame parentWindow) {
+		view = this;
+		this.model = model;
+		this.parentWindow = parentWindow;
+		greskaLabela = new JLabel("");
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		Controller control = new Controller();
 
@@ -43,14 +49,14 @@ public class LoginView extends JPanel {
 		JPanel panelNoviPassword = new JPanel();
 		panelNoviPassword.setLayout(new BoxLayout(panelNoviPassword, BoxLayout.X_AXIS));
 
-		JLabel passwordL = new JLabel("Korisnicko ime: ");
+		JLabel passwordL = new JLabel("Lozinka: ");
 		panelNoviPassword.add(passwordL);
 		panelNoviPassword.add(Box.createRigidArea(new Dimension(30, 0)));
 
 		password = new JTextField();
 		password.setPreferredSize(new Dimension(400, 20));
 		password.setMaximumSize(new Dimension(400, 20));
-		panelNoviPassword.add(username);
+		panelNoviPassword.add(password);
 		this.add(panelNoviPassword);
 
 		this.add(Box.createRigidArea(new Dimension(0, 40)));
@@ -65,7 +71,8 @@ public class LoginView extends JPanel {
 		odustani.addActionListener(control);
 		panelDugmici.add(odustani);
 		this.add(panelDugmici);
-
+		this.add(greskaLabela);
+		setVisible(true);
 	}
 
 	private class Controller implements ActionListener {
@@ -76,6 +83,10 @@ public class LoginView extends JPanel {
 				boolean rez = model.proveriLogin(username.getText(), password.getText());
 				if (!rez) {
 					greskaLabela.setText("Neuspesna prijava");
+				}
+				else
+				{
+					parentWindow.setVisible(false);
 				}
 			} else if (e.getSource() == odustani) {
 				System.out.println("odustani");
