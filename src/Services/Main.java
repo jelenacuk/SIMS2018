@@ -3,6 +3,7 @@ package Services;
 import java.io.IOException;
 import java.text.ParseException;
 import dataClasses.Aplikacija;
+import dataClasses.Korisnik;
 import gui.KorisnikFrame;
 import gui.MainFrame;
 import gui.UnosRecepataFrame;
@@ -18,13 +19,16 @@ public class Main {
 		sastojci.ucitaj("./src/Files/sastojci.txt");
 		kolicineSastojaka.ucitaj("./src/Files/kolicineSastojaka.txt", sastojci.getSastojci());
 		kategorije.ucitaj("./src/Files/kategorije.txt");
-		//korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
-				//kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
+		// korisnici.ucitajKorisnike("./src/Files/korisnici.txt",
+		// recepti.getListaRecepata(),
+		// kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
 		komentari.ucitaj("./src/Files/komentari.txt", korisnici.getKorisnici());
-		//recepti.ucitaj("./src/Files/recepti.txt", korisnici.getKorisnici(), kolicineSastojaka.getKolicineSastojaka(),
-				//aparati.getAparati(), kategorije.getKategorije(), komentari.getKomentari());
-		//korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
-				//kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
+		// recepti.ucitaj("./src/Files/recepti.txt", korisnici.getKorisnici(),
+		// kolicineSastojaka.getKolicineSastojaka(),
+		// aparati.getAparati(), kategorije.getKategorije(), komentari.getKomentari());
+		// korisnici.ucitajKorisnike("./src/Files/korisnici.txt",
+		// recepti.getListaRecepata(),
+		// kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
 
 	}
 
@@ -53,8 +57,8 @@ public class Main {
 
 		ucitajPodatke(aparati, sastojci, kolicineSastojaka, kategorije, komentari, recepti, korisnici);
 
-		for (String k : korisnici.getKorisnici().keySet()) {
-			System.out.println(korisnici.getKorisnici().get(k));
+		for (Korisnik k : korisnici.getKorisnici()) {
+			System.out.println(k);
 		}
 
 		upisiPodatke(aparati, sastojci, kolicineSastojaka, kategorije, komentari, recepti, korisnici);
@@ -68,10 +72,14 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Aplikacija.aplikacija.setTrenutniKorisnik(korisnici.getKorisnici().get("pera"));
+		for (Korisnik k : korisnici.getKorisnici()) {
+			if (k.getUsername() == "pera") {
+				Aplikacija.aplikacija.setTrenutniKorisnik(k);
+			}
+		}
 		MainFrame mf = MainFrame.getInstance();
-		mf.setVisible(true);		
-		
+		mf.setVisible(true);
+
 	}
 
 }

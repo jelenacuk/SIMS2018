@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import dataClasses.Aparat;
 import dataClasses.KolicinaSastojka;
@@ -17,10 +16,10 @@ import dataClasses.TitulaKorisnika;
 import dataClasses.VrstaKorisnika;
 
 public class KorisnikServis {
-	private HashMap<String, Korisnik> korisnici;
+	private ArrayList<Korisnik> korisnici;
 
 	public KorisnikServis() {
-		korisnici = new HashMap<>();
+		korisnici = new ArrayList<>();
 	}
 
 	// Metoda za ucitavanje postojecih korisnika iz fajla.
@@ -112,7 +111,7 @@ public class KorisnikServis {
 				ucitaniKorisnik.getAparati().add(ucitaniAparat);
 			}
 
-			korisnici.put(sL[0], ucitaniKorisnik);
+			korisnici.add(ucitaniKorisnik);
 
 		}
 		bf.close();
@@ -121,8 +120,7 @@ public class KorisnikServis {
 	public void upisiKorisnike(String nazivFajla) throws IOException {
 		PrintWriter upisiKorisnika = new PrintWriter(new FileWriter(nazivFajla));
 
-		for (Map.Entry<String, Korisnik> entry : this.korisnici.entrySet()) {
-			Korisnik kor = entry.getValue();
+		for (Korisnik kor : korisnici) {
 			String strZaUpis = kor.getUsername() + "|" + kor.getPassword() + "|" + kor.getBrojacLajkova() + "|"
 					+ kor.getVrstaKorisnika().toString() + "|" + kor.getTitula().toString() + "|";
 
@@ -220,12 +218,14 @@ public class KorisnikServis {
 		return sastojak;
 	}
 
-	public HashMap<String, Korisnik> getKorisnici() {
+	public ArrayList<Korisnik> getKorisnici() {
 		return korisnici;
 	}
 
-	public void setKorisnici(HashMap<String, Korisnik> korisnici) {
+	public void setKorisnici(ArrayList<Korisnik> korisnici) {
 		this.korisnici = korisnici;
 	}
+
+
 
 }

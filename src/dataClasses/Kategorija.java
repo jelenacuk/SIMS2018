@@ -1,7 +1,7 @@
 package dataClasses;
 
 public class Kategorija {
-	
+
 	private int idKategorije;
 	private String naziv;
 
@@ -10,14 +10,24 @@ public class Kategorija {
 		this.idKategorije = id;
 		this.naziv = naziv;
 	}
-	
+
 	@Override
 	public String toString() {
 		String line = naziv + "\n";
 		return line;
-		
+
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Kategorija) {
+			Kategorija k = (Kategorija) obj;
+			if (k.getIdKategorije() == this.getIdKategorije() && k.getNaziv() == this.getNaziv()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public int getIdKategorije() {
 		return idKategorije;
@@ -34,5 +44,5 @@ public class Kategorija {
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
-	
+
 }
