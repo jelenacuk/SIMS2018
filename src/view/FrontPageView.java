@@ -232,6 +232,14 @@ public class FrontPageView extends JPanel implements Observer {
 				System.out.println("log out");
 			} else if (obj.getSource() == btSearch) {
 				System.out.println("Search");
+				String naziv = textSearch.getText();
+				JFrame pretragaPoNazivuFrame = new JFrame("Rezultati pretrage po nazivu");
+				PretragaRecepataPoNazivuView pretragaPoNazivuView = new PretragaRecepataPoNazivuView(naziv);
+				pretragaPoNazivuFrame.add(pretragaPoNazivuView);
+				pretragaPoNazivuFrame.setTitle("Pretraga");
+				pretragaPoNazivuFrame.setSize(800, 800);
+				pretragaPoNazivuFrame.setVisible(true);
+				
 			} else if (obj.getSource() == btNoviExpand) {
 				System.out.println("Prikazi nove recepte");
 			} else if (obj.getSource() == btPopExpand) {
