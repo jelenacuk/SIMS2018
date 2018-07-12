@@ -188,6 +188,8 @@ public class FrontPageView extends JPanel implements Observer {
 			if (obj.getSource() == btLogIn) {
 				JFrame loginFrame = new JFrame();
 				loginFrame.setSize(500, 400);
+				loginFrame.setLocationRelativeTo(null);
+
 				LoginModel loginModel = new LoginModel();
 				LoginView loginView = new LoginView(loginModel,loginFrame);
 				loginFrame.add(loginView);

@@ -18,6 +18,7 @@ public class KorisnikFrame extends JFrame {
 	public KorisnikFrame()
 	{
 		tabovi = new JTabbedPane();
+		setLocationRelativeTo(null);
 		sopstveniView = new SopstveniReceptiView();
 		lajkovaniView = new LajkovaniReceptiView();
 		izmenaView = new IzmenaProfilaView();

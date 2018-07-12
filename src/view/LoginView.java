@@ -89,7 +89,7 @@ public class LoginView extends JPanel {
 					parentWindow.setVisible(false);
 				}
 			} else if (e.getSource() == odustani) {
-				System.out.println("odustani");
+				parentWindow.setVisible(false);
 			}
 
 		}
