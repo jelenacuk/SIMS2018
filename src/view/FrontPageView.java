@@ -8,6 +8,7 @@ import dataClasses.Aplikacija;
 import dataClasses.Sastojak;
 import gui.ImagePanel;
 import gui.KorisnikFrame;
+import gui.MainFrame;
 import gui.UnosRecepataFrame;
 import model.FrontPageModel;
 import model.LoginModel;
@@ -22,15 +23,15 @@ import java.util.Observer;
 
 public class FrontPageView extends JPanel implements Observer {
 	private FrontPageModel model;
+	private FrontPageView FPview;
 	JButton btLogIn, btRegister, btLogOut; // Dugmad za prijavu/odjavu i registraciju
 	JButton btProfil; // Dugme koje vodi do pregleda profila
 	// pretraga po nazivu
 	JButton btSearch;
 	JTextField textSearch;
-
 	JPanel kategorijePanel;
 	JPanel upper; // panel koji sadrzi dugmad za prijavu/odjavu, registraciju, profil i pretragu
-
+	MainFrame mf;
 	// paneli sa leve strane ekrana. Filtriranje po sastojcima i aparatima
 	// panel left sadrzi dugme za kreiranje novog recepta i panele sastojciPanel i
 	// aparatiPanel
@@ -50,13 +51,14 @@ public class FrontPageView extends JPanel implements Observer {
 	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
 	JButton btDodajRecept;
 
-	public FrontPageView(FrontPageModel model) {
+	public FrontPageView(FrontPageModel model,MainFrame mf) {
 		Controller control = new Controller(); // instanca kontrolera. U kontroleru su implementirane akcije za pritisak
 												// na dugmad
 		this.setLayout(new GridBagLayout());
 		this.setPreferredSize(new Dimension(800, 600));
 		this.model = model;
-
+		this.FPview = this;
+		this.mf = mf;
 		//Kreiranje instanci i podesavanje layout-a
 		sastojciDugmad = new ArrayList<>();
 		aparatiDugmad = new ArrayList<>();
@@ -177,10 +179,12 @@ public class FrontPageView extends JPanel implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-
+		System.out.println("Ulogovan");
+		repaint();
 	}
-
+	public void reload(){
+		mf.replaceWindow();
+	}
 	private class Controller implements ActionListener {
 
 		@Override
@@ -190,7 +194,7 @@ public class FrontPageView extends JPanel implements Observer {
 				loginFrame.setSize(500, 400);
 				loginFrame.setLocationRelativeTo(null);
 
-				LoginModel loginModel = new LoginModel();
+				LoginModel loginModel = new LoginModel(FPview);
 				LoginView loginView = new LoginView(loginModel,loginFrame);
 				loginFrame.add(loginView);
 				loginFrame.setVisible(true);

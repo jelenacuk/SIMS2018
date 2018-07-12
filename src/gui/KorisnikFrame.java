@@ -28,7 +28,6 @@ public class KorisnikFrame extends JFrame {
 		tabovi.add("Lajkovani recepti", lajkovaniView);
 		tabovi.add("Izmena profila", izmenaView);
 		
-		
 		this.add(tabovi);
 		setTitle("Pregled profila");
 		this.setSize(600, 600);

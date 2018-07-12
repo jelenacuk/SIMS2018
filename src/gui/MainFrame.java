@@ -26,8 +26,14 @@ public void initGUI(){
 		setPreferredSize(new Dimension(800, 600));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		FrontPageView view = new FrontPageView(model);
+		FrontPageView view = new FrontPageView(model,this);
 		setResizable(false);
 		add(view);
+	}
+public void replaceWindow(){
+		instance.setVisible(false);
+		instance = new MainFrame();
+		instance.initGUI();
+		instance.setVisible(true);
 	}
 }
