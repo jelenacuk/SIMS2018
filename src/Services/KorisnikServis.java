@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dataClasses.Aparat;
 import dataClasses.KolicinaSastojka;
@@ -16,9 +17,11 @@ import dataClasses.VrstaKorisnika;
 
 public class KorisnikServis {
 	private ArrayList<Korisnik> korisnici;
+	private HashMap<String, ArrayList<Integer>> idRecepata;
 
 	public KorisnikServis() {
 		korisnici = new ArrayList<>();
+		idRecepata = new HashMap<>();
 	}
 
 	// Metoda za ucitavanje postojecih korisnika iz fajla.
@@ -26,6 +29,7 @@ public class KorisnikServis {
 	// korisnika.
 	public void ucitajKorisnike(String nazivFajla, ArrayList<Recept> recepti, ArrayList<KolicinaSastojka> sastojci,
 			ArrayList<Aparat> aparati) throws IOException {
+
 		String trenutnaLinija;
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
 		while ((trenutnaLinija = bf.readLine()) != null) {
@@ -34,6 +38,8 @@ public class KorisnikServis {
 			Korisnik ucitaniKorisnik = new Korisnik(sL[0], sL[1], Integer.parseInt(sL[2]), VrstaKorisnika.REGULARAN,
 					TitulaKorisnika.NOVAJLIJA, new ArrayList<Recept>(), new ArrayList<KolicinaSastojka>(),
 					new ArrayList<Recept>(), new ArrayList<Recept>(), new ArrayList<Aparat>());
+			ucitaniKorisnik.setIme(sL[10]);
+			ucitaniKorisnik.setPrezime(sL[11]);
 			// Provera tacne vrste korisnika.
 			switch (sL[3]) {
 			case "REGULARAN":
@@ -59,55 +65,63 @@ public class KorisnikServis {
 			}
 
 			// Ucitavanje recepata korisnika (preko id-a recepta).
-			String[] sLRecepti = sL[5].split("\\;");
-			for (int i = 0; i < sLRecepti.length; i++) {
-				if (sLRecepti[i].equals("")) {
-					break;
+			ArrayList<Integer> idRec = new ArrayList<>();
+			if (!sL[5].equals(" ")) {
+				String[] sLRecepti = sL[5].split("\\;");
+				for (int i = 0; i < sLRecepti.length; i++) {
+					idRec.add(Integer.parseInt(sLRecepti[i]));
 				}
-				Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLRecepti[i]));
-				ucitaniKorisnik.getRecepti().add(ucitaniRecept);
-
+				
 			}
+			idRecepata.put(sL[0], idRec);
 
 			// Ucitavanje kolicineSastojaka.
-			String[] sLSastojci = sL[6].split("\\;");
-			for (int i = 0; i < sLSastojci.length; i++) {
-				if (sLSastojci[i].equals("")) {
-					break;
+			if (!sL[6].equals(" ")) {
+				String[] sLSastojci = sL[6].split("\\;");
+				for (int i = 0; i < sLSastojci.length; i++) {
+					if (sLSastojci[i].equals("")) {
+						break;
+					}
+					KolicinaSastojka ks = pronadjiKolicinuSastojka(sastojci, Integer.parseInt(sLSastojci[i]));
+					ucitaniKorisnik.getKolicinaSastojaka().add(ks);
 				}
-				KolicinaSastojka ks = pronadjiKolicinuSastojka(sastojci, Integer.parseInt(sLSastojci[i]));
-				ucitaniKorisnik.getKolicinaSastojaka().add(ks);
 			}
 
 			// Ucitavanje lajkovanih recepata (preko id-a recepta).
-			String[] sLLajkovani = sL[7].split("\\;");
-			for (int i = 0; i < sLLajkovani.length; i++) {
-				if (sLLajkovani[i].equals("")) {
-					break;
+			if (!sL[7].equals(" ")) {
+				String[] sLLajkovani = sL[7].split("\\;");
+				for (int i = 0; i < sLLajkovani.length; i++) {
+					if (sLLajkovani[i].equals("")) {
+						break;
+					}
+					Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLLajkovani[i]));
+					ucitaniKorisnik.getLajkovaniRecepti().add(ucitaniRecept);
 				}
-				Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLLajkovani[i]));
-				ucitaniKorisnik.getLajkovaniRecepti().add(ucitaniRecept);
 			}
 
 			// Ucitavanje dislajkovanih recepata (preko id-a recepta).
-			String[] sLDis = sL[8].split("\\;");
-			for (int i = 0; i < sLDis.length; i++) {
-				if (sLDis[i].equals("")) {
-					break;
+			if (!sL[8].equals(" ")) {
+				String[] sLDis = sL[8].split("\\;");
+				for (int i = 0; i < sLDis.length; i++) {
+					if (sLDis[i].equals("")) {
+						break;
+					}
+					Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLDis[i]));
+					ucitaniKorisnik.getDislajkovaniRecepti().add(ucitaniRecept);
 				}
-				Recept ucitaniRecept = pronadjiRecept(recepti, Integer.parseInt(sLDis[i]));
-				ucitaniKorisnik.getDislajkovaniRecepti().add(ucitaniRecept);
 			}
 
 			// Ucitavanje aparata (preko naziva aparata).
-			String[] sLAparati = sL[9].split("\\;");
-			for (int i = 0; i < sLAparati.length; i++) {
-				if (sLAparati[i].equals("")) {
-					break;
-				}
+			if (!sL[9].equals(" ")) {
+				String[] sLAparati = sL[9].split("\\;");
+				for (int i = 0; i < sLAparati.length; i++) {
+					if (sLAparati[i].equals("")) {
+						break;
+					}
 
-				Aparat ucitaniAparat = pronadjiAparat(aparati, sLAparati[i]);
-				ucitaniKorisnik.getAparati().add(ucitaniAparat);
+					Aparat ucitaniAparat = pronadjiAparat(aparati, sLAparati[i]);
+					ucitaniKorisnik.getAparati().add(ucitaniAparat);
+				}
 			}
 
 			korisnici.add(ucitaniKorisnik);
@@ -124,7 +138,7 @@ public class KorisnikServis {
 					+ kor.getVrstaKorisnika().toString() + "|" + kor.getTitula().toString() + "|";
 
 			// Upis Id-a korisnikovih recepata.
-			String strIdRecepata = "";
+			String strIdRecepata = " ";
 			for (int i = 0; i < kor.getRecepti().size(); i++) {
 				if (i > 0) {
 					strIdRecepata += ";";
@@ -135,7 +149,7 @@ public class KorisnikServis {
 			strZaUpis += strIdRecepata;
 
 			// Upis Id-a korisnikovih sastojaka(Kolicine sastojaka).
-			String strIdKolicineSastojaka = "";
+			String strIdKolicineSastojaka = " ";
 			for (int i = 0; i < kor.getKolicinaSastojaka().size(); i++) {
 				if (i > 0) {
 					strIdKolicineSastojaka += ";";
@@ -146,7 +160,7 @@ public class KorisnikServis {
 			strZaUpis += strIdKolicineSastojaka;
 
 			// Upis Id-a korisnikovih lajkovanih recepata.
-			String strIdLajkovanihRec = "";
+			String strIdLajkovanihRec = " ";
 			for (int i = 0; i < kor.getLajkovaniRecepti().size(); i++) {
 				if (i > 0) {
 					strIdLajkovanihRec += ";";
@@ -157,7 +171,7 @@ public class KorisnikServis {
 			strZaUpis += strIdLajkovanihRec;
 
 			// Upis Id-a korisnikovih dislajkovanih recepata.
-			String strIdDislajkRec = "";
+			String strIdDislajkRec = " ";
 			for (int i = 0; i < kor.getDislajkovaniRecepti().size(); i++) {
 				if (i > 0) {
 					strIdDislajkRec += ";";
@@ -168,7 +182,7 @@ public class KorisnikServis {
 			strZaUpis += strIdDislajkRec;
 
 			// Upis Id-a korisnikovih aparata.
-			String strNazivAparata = "";
+			String strNazivAparata = " ";
 			for (int i = 0; i < kor.getAparati().size(); i++) {
 				if (i > 0) {
 					strNazivAparata += ";";
@@ -176,6 +190,7 @@ public class KorisnikServis {
 				strNazivAparata += kor.getAparati().get(i).getIdAparata();
 			}
 			strZaUpis += strNazivAparata;
+			strZaUpis += "|" +  kor.getIme() + "|" + kor.getPrezime();
 
 			// Upis korisnika u fajl.
 			upisiKorisnika.println(strZaUpis);
@@ -185,7 +200,7 @@ public class KorisnikServis {
 
 	}
 
-	private Recept pronadjiRecept(ArrayList<Recept> recepti, int id) {
+	public Recept pronadjiRecept(ArrayList<Recept> recepti, int id) {
 		Recept pronadjeniRecept = null;
 
 		for (Recept r : recepti) {
@@ -226,6 +241,14 @@ public class KorisnikServis {
 
 	public void setKorisnici(ArrayList<Korisnik> korisnici) {
 		this.korisnici = korisnici;
+	}
+
+	public HashMap<String, ArrayList<Integer>> getIdRecepata() {
+		return idRecepata;
+	}
+
+	public void setIdRecepata(HashMap<String, ArrayList<Integer>> idRecepata) {
+		this.idRecepata = idRecepata;
 	}
 
 }

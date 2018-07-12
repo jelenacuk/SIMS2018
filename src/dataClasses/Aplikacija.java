@@ -31,7 +31,7 @@ public class Aplikacija {
 	}
 
 	public Aplikacija(ArrayList<Sastojak> sastojci, ArrayList<Recept> recepti, ArrayList<Kategorija> kategorije,
-			ArrayList<Aparat> aparati, ArrayList<Korisnik> korisnici, Korisnik trenutniKorisnik) {
+			ArrayList<Aparat> aparati, ArrayList<Korisnik> korisnici) {
 		if (aplikacija == null)
 		{
 			aplikacija = this;
@@ -41,7 +41,7 @@ public class Aplikacija {
 		this.kategorije = kategorije;
 		this.aparati = aparati;
 		this.korisnici = korisnici;
-		this.trenutniKorisnik = trenutniKorisnik;
+		this.trenutniKorisnik = null;
 	}
 
 	public void dodajRecept(Recept noviRecept) {

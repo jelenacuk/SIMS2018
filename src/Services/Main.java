@@ -2,14 +2,12 @@ package Services;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import dataClasses.Aplikacija;
 import dataClasses.Korisnik;
-import dataClasses.TitulaKorisnika;
-import dataClasses.VrstaKorisnika;
-import gui.KorisnikFrame;
+import dataClasses.Recept;
+
 import gui.MainFrame;
-import gui.UnosRecepataFrame;
-import view.UnosRecepataView;
 
 public class Main {
 
@@ -26,8 +24,19 @@ public class Main {
 		komentari.ucitaj("./src/Files/komentari.txt", korisnici.getKorisnici());
 		recepti.ucitaj("./src/Files/recepti.txt", korisnici.getKorisnici(), kolicineSastojaka.getKolicineSastojaka(),
 				aparati.getAparati(), kategorije.getKategorije(), komentari.getKomentari());
-		korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
-				kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
+
+		ArrayList<Integer> idRec = null;
+		for (Korisnik kor : korisnici.getKorisnici()) {
+			if (korisnici.getIdRecepata().containsKey(kor.getUsername())) {
+				idRec = korisnici.getIdRecepata().get(kor.getUsername());
+				for (Integer id : idRec) {
+					Recept rec = null;
+					rec = korisnici.pronadjiRecept(recepti.getListaRecepata(), id.intValue());
+					kor.getRecepti().add(rec);
+				}
+			}
+
+		}
 
 	}
 
@@ -60,33 +69,19 @@ public class Main {
 			System.out.println(k);
 		}
 
-		upisiPodatke(aparati, sastojci, kolicineSastojaka, kategorije, komentari, recepti, korisnici);
+		Aplikacija app = new Aplikacija(sastojci.getSastojci(), recepti.getListaRecepata(), kategorije.getKategorije(),
+				aparati.getAparati(), korisnici.getKorisnici());
 
-		Aplikacija app = new Aplikacija();
-		SastojakServis sasServ = new SastojakServis();
-		try {
-			Aplikacija.aplikacija.setSastojci(sasServ.ucitaj("./src/Files/sastojci.txt"));
-			Aplikacija.aplikacija.setAparati(aparati.getAparati());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		for (Korisnik k : korisnici.getKorisnici()) {
 			if (k.getUsername() == "pera") {
 				Aplikacija.aplikacija.setTrenutniKorisnik(k);
 			}
 		}
-		Korisnik k = new Korisnik();
-		k.setIme("Pera");
-		k.setPrezime("Peric");
-		k.setTitula(TitulaKorisnika.NOVAJLIJA);
-		k.setVrstaKorisnika(VrstaKorisnika.REGULARAN);
-		k.setUsername("pera");
-		k.setPassword("peric");
-		Aplikacija.aplikacija.setTrenutniKorisnik(k);
-		Aplikacija.aplikacija.getKorisnici().add(k);
+
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
+
+		upisiPodatke(aparati, sastojci, kolicineSastojaka, kategorije, komentari, recepti, korisnici);
 
 	}
 

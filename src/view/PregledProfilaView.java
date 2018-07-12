@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import dataClasses.Aplikacija;
-import javafx.scene.control.Label;
+
 
 public class PregledProfilaView extends JPanel {
 	JLabel ime,prezime,brLajkova,titula;
