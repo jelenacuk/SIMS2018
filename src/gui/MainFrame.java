@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+
+import Services.Main;
 import model.FrontPageModel;
 import view.FrontPageView;
 
@@ -25,7 +27,8 @@ public void initGUI(){
 		setSize(800,600);
 		setPreferredSize(new Dimension(800, 600));
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		FrontPageView view = new FrontPageView(model,this);
 		setResizable(false);
 		add(view);

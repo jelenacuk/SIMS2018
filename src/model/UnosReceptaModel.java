@@ -1,12 +1,16 @@
 package model;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JPanel;
 
+import Services.Main;
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
+import dataClasses.Kategorija;
 import dataClasses.KolicinaSastojka;
 import dataClasses.Komentar;
 import dataClasses.Recept;
@@ -37,14 +41,24 @@ public class UnosReceptaModel {
 		recept.setTekst(tekst);
 		recept.setOpis("");
 		recept.setSuspendovan(false);
-
+		recept.setKategorija(Aplikacija.aplikacija.getKategorije().get(0));
+		recept.setKorisnik(Aplikacija.aplikacija.getTrenutniKorisnik());
+		Aplikacija.aplikacija.getTrenutniKorisnik().getRecepti().add(recept);
 		recept.setNeophodniAparati(potrebniAparati);
 		recept.setOpcioniAparati(opcioniAparati);
 		recept.setNeophodniSastojci(potrebniSastojci);
 		recept.setOpcioniSastojci(opcioniSastojci);
 
 		Aplikacija.aplikacija.dodajRecept(recept);
-
+		try {
+			Main.upisiPodatke();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void addPotrebanSastojak(KolicinaSastojka s) {

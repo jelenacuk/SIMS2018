@@ -3,10 +3,15 @@ package Services;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import dataClasses.Aparat;
 import dataClasses.Aplikacija;
+import dataClasses.Kategorija;
+import dataClasses.KolicinaSastojka;
+import dataClasses.Komentar;
 import dataClasses.Korisnik;
 import dataClasses.Recept;
-
+import dataClasses.Sastojak;
 import gui.MainFrame;
 
 public class Main {
@@ -40,17 +45,15 @@ public class Main {
 
 	}
 
-	public static void upisiPodatke(AparatServis aparati, SastojakServis sastojci,
-			KolicinaSastojkaServis kolicineSastojaka, KategorijaServis kategorije, KomentarServis komentari,
-			ReceptServis recepti, KorisnikServis korisnici) throws IOException, ParseException {
+	public static void upisiPodatke() throws IOException, ParseException {
 
-		korisnici.upisiKorisnike("./src/Files/korisnici.txt");
-		aparati.upisiAparate("./src/Files/aparati.txt");
-		komentari.upisiKomentare("./src/Files/komentari.txt");
-		kategorije.upisiKategorije("./src/Files/kategorije.txt");
-		sastojci.upisiSastojke("./src/Files/sastojci.txt");
-		kolicineSastojaka.upisiKolicinuSastojaka("./src/Files/kolicineSastojaka.txt");
-		recepti.upisiRecepte("./src/Files/recepti.txt");
+		KorisnikServis.upisiKorisnikeNew("./src/Files/korisnici.txt");
+		AparatServis.upisiAparate("./src/Files/aparati.txt");
+		KomentarServis.upisiKomentare("./src/Files/komentari.txt");
+		KategorijaServis.upisiKategorije("./src/Files/kategorije.txt");
+		SastojakServis.upisiSastojke("./src/Files/sastojci.txt");
+		KolicinaSastojkaServis.upisiKolicinuSastojaka("./src/Files/kolicineSastojaka.txt");
+		ReceptServis.upisiRecepte("./src/Files/recepti.txt");
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
@@ -80,8 +83,6 @@ public class Main {
 
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
-
-		upisiPodatke(aparati, sastojci, kolicineSastojaka, kategorije, komentari, recepti, korisnici);
 
 	}
 

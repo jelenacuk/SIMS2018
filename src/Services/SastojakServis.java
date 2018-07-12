@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import dataClasses.Aplikacija;
 import dataClasses.Sastojak;
 
 public class SastojakServis {
@@ -32,10 +34,10 @@ public class SastojakServis {
 		return sastojci;
 	}
 
-	public void upisiSastojke(String nazivFajla) throws IOException {
+	public static void upisiSastojke(String nazivFajla) throws IOException {
 		PrintWriter upisiSastojak = new PrintWriter(new FileWriter(nazivFajla));
 
-		for (Sastojak sastojak : this.sastojci) {
+		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {
 			String strZaUpis = sastojak.getIdSastojka() + "|" + sastojak.getNaziv() + "|" + sastojak.getOpis();
 
 			upisiSastojak.println(strZaUpis);

@@ -9,8 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import dataClasses.Aplikacija;
 import dataClasses.Komentar;
 import dataClasses.Korisnik;
+import dataClasses.Recept;
 
 public class KomentarServis {
 
@@ -37,10 +40,17 @@ public class KomentarServis {
 		bf.close();
 	}
 
-	public void upisiKomentare(String nazivFajla) throws IOException {
+	public static void upisiKomentare(String nazivFajla) throws IOException {
 		PrintWriter upisiKomentar = new PrintWriter(new FileWriter(nazivFajla));
-		for (Komentar kom : this.komentari) {
-			String strZaUpis = kom.getIdKomentara() + "|" + kom.getTekst() + "|" + this.sdf.format(kom.getDatum()) + "|"
+		ArrayList<Komentar> komentari = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+		for (Recept recept : Aplikacija.aplikacija.getRecepti()) {
+			for (Komentar komentar : recept.getKomentari()) {
+				komentari.add(komentar);
+			}
+		}
+		for (Komentar kom : komentari) {
+			String strZaUpis = kom.getIdKomentara() + "|" + kom.getTekst() + "|" + sdf.format(kom.getDatum()) + "|"
 					+ kom.getKorisnik().getUsername();
 
 			upisiKomentar.println(strZaUpis);

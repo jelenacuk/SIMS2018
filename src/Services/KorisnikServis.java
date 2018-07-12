@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import dataClasses.Aparat;
+import dataClasses.Aplikacija;
 import dataClasses.KolicinaSastojka;
 import dataClasses.Korisnik;
 import dataClasses.Recept;
@@ -71,7 +72,7 @@ public class KorisnikServis {
 				for (int i = 0; i < sLRecepti.length; i++) {
 					idRec.add(Integer.parseInt(sLRecepti[i]));
 				}
-				
+
 			}
 			idRecepata.put(sL[0], idRec);
 
@@ -130,67 +131,92 @@ public class KorisnikServis {
 		bf.close();
 	}
 
-	public void upisiKorisnike(String nazivFajla) throws IOException {
+	public static void upisiKorisnikeNew(String nazivFajla) throws IOException {
 		PrintWriter upisiKorisnika = new PrintWriter(new FileWriter(nazivFajla));
 
-		for (Korisnik kor : korisnici) {
+		for (Korisnik kor : Aplikacija.aplikacija.getKorisnici()) {
 			String strZaUpis = kor.getUsername() + "|" + kor.getPassword() + "|" + kor.getBrojacLajkova() + "|"
 					+ kor.getVrstaKorisnika().toString() + "|" + kor.getTitula().toString() + "|";
 
 			// Upis Id-a korisnikovih recepata.
-			String strIdRecepata = " ";
-			for (int i = 0; i < kor.getRecepti().size(); i++) {
-				if (i > 0) {
-					strIdRecepata += ";";
+			String strIdRecepata = "";
+			if (kor.getRecepti().isEmpty()) {
+				strIdRecepata = " ";
+			} else {
+				for (int i = 0; i < kor.getRecepti().size(); i++) {
+					if (i > 0) {
+						strIdRecepata += ";";
+					}
+					strIdRecepata += kor.getRecepti().get(i).getIdRecepta();
 				}
-				strIdRecepata += kor.getRecepti().get(i).getIdRecepta();
 			}
+
 			strIdRecepata += "|";
 			strZaUpis += strIdRecepata;
 
 			// Upis Id-a korisnikovih sastojaka(Kolicine sastojaka).
-			String strIdKolicineSastojaka = " ";
-			for (int i = 0; i < kor.getKolicinaSastojaka().size(); i++) {
-				if (i > 0) {
-					strIdKolicineSastojaka += ";";
+			String strIdKolicineSastojaka = "";
+			if (kor.getKolicinaSastojaka().isEmpty()) {
+				strIdKolicineSastojaka = " ";
+			} else {
+				for (int i = 0; i < kor.getKolicinaSastojaka().size(); i++) {
+					if (i > 0) {
+						strIdKolicineSastojaka += ";";
+					}
+					strIdKolicineSastojaka += kor.getKolicinaSastojaka().get(i).getIdKolicineSastojaka();
 				}
-				strIdKolicineSastojaka += kor.getKolicinaSastojaka().get(i).getIdKolicineSastojaka();
 			}
+
 			strIdKolicineSastojaka += "|";
 			strZaUpis += strIdKolicineSastojaka;
 
 			// Upis Id-a korisnikovih lajkovanih recepata.
-			String strIdLajkovanihRec = " ";
-			for (int i = 0; i < kor.getLajkovaniRecepti().size(); i++) {
-				if (i > 0) {
-					strIdLajkovanihRec += ";";
+			String strIdLajkovanihRec = "";
+			if (kor.getLajkovaniRecepti().isEmpty()) {
+				strIdLajkovanihRec = " ";
+			} else {
+				for (int i = 0; i < kor.getLajkovaniRecepti().size(); i++) {
+					if (i > 0) {
+						strIdLajkovanihRec += ";";
+					}
+					strIdLajkovanihRec += kor.getLajkovaniRecepti().get(i).getIdRecepta();
 				}
-				strIdLajkovanihRec += kor.getLajkovaniRecepti().get(i).getIdRecepta();
 			}
+
 			strIdLajkovanihRec += "|";
 			strZaUpis += strIdLajkovanihRec;
 
 			// Upis Id-a korisnikovih dislajkovanih recepata.
-			String strIdDislajkRec = " ";
-			for (int i = 0; i < kor.getDislajkovaniRecepti().size(); i++) {
-				if (i > 0) {
-					strIdDislajkRec += ";";
+			String strIdDislajkRec = "";
+			if (kor.getDislajkovaniRecepti().isEmpty()) {
+				strIdDislajkRec = " ";
+			} else {
+				for (int i = 0; i < kor.getDislajkovaniRecepti().size(); i++) {
+					if (i > 0) {
+						strIdDislajkRec += ";";
+					}
+					strIdDislajkRec += kor.getDislajkovaniRecepti().get(i).getIdRecepta();
 				}
-				strIdDislajkRec += kor.getDislajkovaniRecepti().get(i).getIdRecepta();
 			}
+
 			strIdDislajkRec += "|";
 			strZaUpis += strIdDislajkRec;
 
 			// Upis Id-a korisnikovih aparata.
-			String strNazivAparata = " ";
-			for (int i = 0; i < kor.getAparati().size(); i++) {
-				if (i > 0) {
-					strNazivAparata += ";";
+			String strNazivAparata = "";
+			if(kor.getAparati().isEmpty()) {
+				strNazivAparata = " ";
+			} else {
+				for (int i = 0; i < kor.getAparati().size(); i++) {
+					if (i > 0) {
+						strNazivAparata += ";";
+					}
+					strNazivAparata += kor.getAparati().get(i).getIdAparata();
 				}
-				strNazivAparata += kor.getAparati().get(i).getIdAparata();
 			}
+			
 			strZaUpis += strNazivAparata;
-			strZaUpis += "|" +  kor.getIme() + "|" + kor.getPrezime();
+			strZaUpis += "|" + kor.getIme() + "|" + kor.getPrezime();
 
 			// Upis korisnika u fajl.
 			upisiKorisnika.println(strZaUpis);

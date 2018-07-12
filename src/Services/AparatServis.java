@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import dataClasses.Aparat;
+import dataClasses.Aplikacija;
 
 public class AparatServis {
 
@@ -33,10 +34,10 @@ public class AparatServis {
 		bf.close();
 	}
 	
-	public void upisiAparate(String nazivFajla) throws IOException {
+	public static void upisiAparate(String nazivFajla) throws IOException {
 		PrintWriter upisiAparat = new PrintWriter(new FileWriter(nazivFajla));
 
-		for (Aparat ap : this.aparati) {
+		for (Aparat ap : Aplikacija.aplikacija.getAparati()) {
 			String strZaUpis = ap.getIdAparata() + "|" + ap.getNaziv() + "|" + ap.getOpis();
 			upisiAparat.println(strZaUpis);
 		}

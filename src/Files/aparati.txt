@@ -10,3 +10,7 @@
 9|Elektricni rostilj| 
 10|Masina za mlevenje mesa| 
 11|Aparat za kafu| 
+0|Mikser| 
+1|Toster| 
+1|Toster| 
+0|Mikser| 

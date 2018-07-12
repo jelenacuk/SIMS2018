@@ -3,6 +3,7 @@ package Services;
 import dataClasses.Recept;
 import dataClasses.Sastojak;
 import dataClasses.Aparat;
+import dataClasses.Aplikacija;
 import dataClasses.Kategorija;
 import dataClasses.KolicinaSastojka;
 import dataClasses.Komentar;
@@ -62,33 +63,40 @@ public class ReceptServis {
 		bf.close();
 	}
 
-	public void upisiRecepte(String nazivFajla) throws IOException {
+	public static void upisiRecepte(String nazivFajla) throws IOException {
 		PrintWriter upisiRecept = new PrintWriter(new FileWriter(nazivFajla));
-		for (Recept rec : recepti) {
-			String strZaUpis = rec.getIdRecepta() + "|" + rec.getNaziv() + "|" + rec.getOpis() + "|" + rec.getTekst()
+		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy.");
+		for (Recept rec : Aplikacija.aplikacija.getRecepti()) {
+			String strZaUpis = rec.getIdRecepta() + "|" + rec.getNaziv() + "|" + rec.getOpis() + " |" + rec.getTekst()
 					+ "|" + rec.getBrLajkova() + "|" + rec.getBrDislajkova() + "|" + sdf.format(rec.getDatumObjave())
 					+ "|" + rec.isSuspendovan() + "|" + rec.getKategorija().getIdKategorije() + "|"
 					+ rec.getKorisnik().getUsername() + "|";
 
 			// Upis Id-a neophodnih aparata.
 			String strAparati = "";
-			for (int i = 0; i < rec.getNeophodniAparati().size(); i++) {
-				if (i > 0) {
-					strAparati += ";";
+			if (rec.getNeophodniAparati().isEmpty()) {
+				strAparati = " ";
+			} else {
+				for (int i = 0; i < rec.getNeophodniAparati().size(); i++) {
+					if (i > 0) {
+						strAparati += ";";
+					}
+					strAparati += rec.getNeophodniAparati().get(i).getIdAparata();
 				}
-				strAparati += rec.getNeophodniAparati().get(i).getIdAparata();
 			}
+
 			strAparati += "|";
 			strZaUpis += strAparati;
 
 			// Upis Id-a opcionih aparata.
-			String strAparati2 = "";
-			for (int i = 0; i < rec.getOpcioniAparati().size(); i++) {
-				if (i > 0) {
-					strAparati2 += ";";
-				}
-				strAparati2 += rec.getOpcioniAparati().get(i).getIdAparata();
-			}
+			String strAparati2 = " ";
+			/*
+			 * if(rec.getOpcioniAparati().size() == 0) { strAparati2 = " "; } else { for
+			 * (int i = 0; i < rec.getOpcioniAparati().size(); i++) { if (i > 0) {
+			 * strAparati2 += ";"; } strAparati2 +=
+			 * rec.getOpcioniAparati().get(i).getIdAparata(); } }
+			 */
+
 			strAparati2 += "|";
 			strZaUpis += strAparati2;
 
@@ -105,6 +113,9 @@ public class ReceptServis {
 
 			// Upis Id-a opcionih sastojaka (KolicinaSastojaka).
 			String strSastojci2 = "";
+			if (rec.getOpcioniSastojci().isEmpty()) {
+				strSastojci2 = " ";
+			}
 			for (int i = 0; i < rec.getOpcioniSastojci().size(); i++) {
 				if (i > 0) {
 					strSastojci2 += ";";
@@ -116,6 +127,9 @@ public class ReceptServis {
 
 			// Upis Id-a komentara.
 			String strKomentari = "";
+			if (rec.getKomentari().isEmpty()) {
+				strKomentari = " ";
+			}
 			for (int i = 0; i < rec.getKomentari().size(); i++) {
 				if (i > 0) {
 					strKomentari += ";";
@@ -133,7 +147,7 @@ public class ReceptServis {
 		ArrayList<Komentar> vrati = new ArrayList<Komentar>();
 		String[] komentari = line.split("\\;");
 		for (String ko : komentari) {
-			if (ko.equals("")) {
+			if (ko.equals(" ")) {
 				break;
 			}
 			vrati.add(nadjiKomentar(listaKomentara, Integer.parseInt(ko)));
@@ -146,7 +160,7 @@ public class ReceptServis {
 		ArrayList<Aparat> vrati = new ArrayList<Aparat>();
 		String[] aparati = line.split("\\;");
 		for (String ap : aparati) {
-			if (ap.equals("")) {
+			if (ap.equals(" ")) {
 				break;
 			}
 			vrati.add(nadjiSAparat(listaAparata, Integer.parseInt(ap)));
@@ -159,7 +173,7 @@ public class ReceptServis {
 		ArrayList<KolicinaSastojka> vrati = new ArrayList<KolicinaSastojka>();
 		String[] sastojci = line.split("\\;");
 		for (String sa : sastojci) {
-			if (sa.equals("")) {
+			if (sa.equals(" ")) {
 				break;
 			}
 			vrati.add(nadjiKolicinuSastojka(listaSastojaka, Integer.parseInt(sa)));

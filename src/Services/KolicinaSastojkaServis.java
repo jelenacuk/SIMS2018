@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import dataClasses.Aplikacija;
 import dataClasses.KolicinaSastojka;
+import dataClasses.Korisnik;
+import dataClasses.Recept;
 import dataClasses.Sastojak;
 
 public class KolicinaSastojkaServis {
@@ -35,10 +38,20 @@ public class KolicinaSastojkaServis {
 
 	}
 
-	public void upisiKolicinuSastojaka(String nazivFajla) throws IOException {
+	public static void upisiKolicinuSastojaka(String nazivFajla) throws IOException {
 		PrintWriter upisiKS = new PrintWriter(new FileWriter(nazivFajla));
-
-		for (KolicinaSastojka kS : this.kolicineSastojaka) {
+		ArrayList<KolicinaSastojka> kolicineSastojaka = new ArrayList<>();
+		for (Korisnik korisnik : Aplikacija.aplikacija.getKorisnici()) {
+			for (KolicinaSastojka kolicinaSastojka : korisnik.getKolicinaSastojaka()) {
+				kolicineSastojaka.add(kolicinaSastojka);
+			}
+		}
+		for (Recept recept : Aplikacija.aplikacija.getRecepti()) {
+			for (KolicinaSastojka kolicinaSastojka : recept.getNeophodniSastojci()) {
+				kolicineSastojaka.add(kolicinaSastojka);
+			}
+		}
+		for (KolicinaSastojka kS : kolicineSastojaka) {
 			String strZaUpis = kS.getIdKolicineSastojaka() + "|" + kS.getKolicina() + "|"
 					+ kS.getSastojak().getIdSastojka();
 

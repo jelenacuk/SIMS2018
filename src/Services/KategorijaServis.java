@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import dataClasses.Aplikacija;
 import dataClasses.Kategorija;
 
 
@@ -31,9 +33,9 @@ public class KategorijaServis {
 		bf.close();
 	}
 	
-	public void upisiKategorije(String nazivFajla) throws IOException {
+	public static void upisiKategorije(String nazivFajla) throws IOException {
 		PrintWriter upisiKategoriju = new PrintWriter(new FileWriter(nazivFajla));
-		for(Kategorija kat : this.kategorije) {
+		for(Kategorija kat : Aplikacija.aplikacija.getKategorije()) {
 			String strZaUpis = kat.getIdKategorije() + "|" + kat.getNaziv();
 			
 			upisiKategoriju.println(strZaUpis);

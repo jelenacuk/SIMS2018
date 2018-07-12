@@ -1,1 +1,1 @@
-pera|peric|0|REGULARAN|NOVAJLIJA| | | | | |Pera|Peric
+pera|peric|0|REGULARAN|NOVAJLIJA|0;0| | | | |Pera|Peric

@@ -22,6 +22,11 @@ public class Recept {
 	private String slika;
 	public Recept() {
 		super();
+		opcioniAparati = new ArrayList<>();
+		neophodniAparati = new ArrayList<>();
+		komentari = new ArrayList<>();
+		neophodniSastojci = new ArrayList<>();
+		opcioniSastojci = new ArrayList<>();
 		slika = "./src/download.jpg";
 		
 	}
