@@ -17,7 +17,7 @@ public class AparatServis {
 	public AparatServis() {
 		this.aparati = new ArrayList<Aparat>();
 	}
-
+	
 	public void ucitaj(String nazivFajla) throws IOException {
 		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
 		String line = "";
@@ -32,7 +32,7 @@ public class AparatServis {
 		}
 		bf.close();
 	}
-
+	
 	public void upisiAparate(String nazivFajla) throws IOException {
 		PrintWriter upisiAparat = new PrintWriter(new FileWriter(nazivFajla));
 

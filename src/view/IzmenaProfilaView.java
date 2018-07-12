@@ -97,6 +97,7 @@ public class IzmenaProfilaView extends JPanel {
 				if ( novaS != "" ) {
 					Aplikacija.aplikacija.getTrenutniKorisnik().setPassword(novaS);
 				}
+				izmeni.setText("Izmenjeno");
 				
 			}
 			else if (obj.getSource() == odustani) {

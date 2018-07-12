@@ -20,6 +20,8 @@ import dataClasses.Aparat;
 import dataClasses.Aplikacija;
 import dataClasses.KolicinaSastojka;
 import dataClasses.Sastojak;
+import gui.UnosAparataFrame;
+import gui.UnosRecepataFrame;
 import model.UnosReceptaModel;
 
 
@@ -32,16 +34,17 @@ public class UnosRecepataView extends JPanel{
 	private JTextArea tekst;
 	JTextField naziv;
 	private JButton dodajSastojak, dodajAparat, objavi, odustani;
-	ArrayList<JCheckBox> sastojciDugmad,aparatiDugmad;
-	HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
-	HashMap<JCheckBox, JTextField> mapaDugmeKolicinaSastojka;
-	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
+	private ArrayList<JCheckBox> sastojciDugmad,aparatiDugmad;
+	private HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
+	private HashMap<JCheckBox, JTextField> mapaDugmeKolicinaSastojka;
+	private HashMap<JCheckBox, Aparat> mapaDugmeAparat;
+	private UnosRecepataFrame unosReceptaFrame;
 	
-	
-	public UnosRecepataView() {
+	public UnosRecepataView(UnosRecepataFrame unosRFrame) {
 		
 		Controller control = new Controller();
 		unosReceptaModel = new UnosReceptaModel();
+		unosReceptaFrame = unosRFrame;
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
@@ -171,14 +174,17 @@ public class UnosRecepataView extends JPanel{
 			else if (obj.getSource() == dodajSastojak) {
 				
 				System.out.println("dodaj sastojak");
+				
 			}
 			else if (obj.getSource() == dodajAparat) {
 				
 				System.out.println("dodaj aparat");	
+				UnosAparataFrame unosAparata = new UnosAparataFrame(unosReceptaModel);
 			}
 			else if (obj.getSource() == odustani) {
 				
 				System.out.println("Odustani");
+				unosReceptaFrame.setVisible(false);
 				
 				
 			}

@@ -69,6 +69,7 @@ public class UnosReceptaModel {
 	public void addPotrebanAparat(Aparat a) {
 		potrebniAparati.add(a);
 		System.out.println(potrebniAparati.size());
+		Aplikacija.aplikacija.getAparati().add(a);
 
 	}
 	
