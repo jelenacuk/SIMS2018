@@ -13,24 +13,20 @@ import dataClasses.Recept;
 import dataClasses.Sastojak;
 
 public class UnosReceptaModel {
-	
-	
+
 	private ArrayList<KolicinaSastojka> potrebniSastojci;
 	ArrayList<KolicinaSastojka> opcioniSastojci;
 	private ArrayList<Aparat> potrebniAparati, opcioniAparati;
-	
-	
+
 	public UnosReceptaModel() {
 		potrebniSastojci = new ArrayList<KolicinaSastojka>();
 		potrebniAparati = new ArrayList<Aparat>();
 		opcioniSastojci = new ArrayList<KolicinaSastojka>();
 		potrebniAparati = new ArrayList<Aparat>();
 	}
-	
-	
+
 	public void unos(String naziv, String tekst) {
-		
-		
+
 		Recept recept = new Recept();
 		recept.setIdRecepta(Aplikacija.aplikacija.getRecepti().size());
 		recept.setBrDislajkova(0);
@@ -41,21 +37,21 @@ public class UnosReceptaModel {
 		recept.setTekst(tekst);
 		recept.setOpis("");
 		recept.setSuspendovan(false);
-		
+
 		recept.setNeophodniAparati(potrebniAparati);
 		recept.setOpcioniAparati(opcioniAparati);
 		recept.setNeophodniSastojci(potrebniSastojci);
 		recept.setOpcioniSastojci(opcioniSastojci);
-		
+
 		Aplikacija.aplikacija.dodajRecept(recept);
-		
+
 	}
-	
+
 	public void addPotrebanSastojak(KolicinaSastojka s) {
 		potrebniSastojci.add(s);
 		System.out.println(potrebniSastojci.size());
 	}
-	
+
 	public void removePotrebanSastojak(Sastojak s) {
 		for (KolicinaSastojka kolicinaSastojka : potrebniSastojci) {
 			if (kolicinaSastojka.getSastojak() == s) {
@@ -65,35 +61,31 @@ public class UnosReceptaModel {
 		}
 		System.out.println(potrebniSastojci.size());
 	}
-	
+
 	public void addPotrebanAparat(Aparat a) {
 		potrebniAparati.add(a);
 		System.out.println(potrebniAparati.size());
 		Aplikacija.aplikacija.getAparati().add(a);
 
 	}
-	
+
 	public void removePotrebanAparat(Aparat a) {
 		potrebniAparati.remove(a);
 		System.out.println(potrebniAparati.size());
 
 	}
 
-
 	public ArrayList<KolicinaSastojka> getPotrebniSastojci() {
 		return potrebniSastojci;
 	}
-
 
 	public void setPotrebniSastojci(ArrayList<KolicinaSastojka> potrebniSastojci) {
 		this.potrebniSastojci = potrebniSastojci;
 	}
 
-
 	public ArrayList<Aparat> getPotrebniAparati() {
 		return potrebniAparati;
 	}
-
 
 	public void setPotrebniAparati(ArrayList<Aparat> potrebniAparati) {
 		this.potrebniAparati = potrebniAparati;
