@@ -27,8 +27,8 @@ public class FrontPageView extends JPanel implements Observer {
 	JButton btLogIn, btRegister, btLogOut; // Dugmad za prijavu/odjavu i registraciju
 	JButton btProfil; // Dugme koje vodi do pregleda profila
 	// pretraga po nazivu
-	JButton btSearch;
-	JTextField textSearch;
+	JButton btSearch, btSearchPoFilt;
+	JTextField textSearch, textVreme;
 	JPanel kategorijePanel;
 	JPanel upper; // panel koji sadrzi dugmad za prijavu/odjavu, registraciju, profil i pretragu
 	MainFrame mf;
@@ -50,8 +50,9 @@ public class FrontPageView extends JPanel implements Observer {
 	HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
 	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
 	JButton btDodajRecept;
+	JCheckBox checkKorisnikSastojci, checkKorisnikAparati;
 
-	public FrontPageView(FrontPageModel model,MainFrame mf) {
+	public FrontPageView(FrontPageModel model, MainFrame mf) {
 		Controller control = new Controller(); // instanca kontrolera. U kontroleru su implementirane akcije za pritisak
 												// na dugmad
 		this.setLayout(new GridBagLayout());
@@ -59,7 +60,7 @@ public class FrontPageView extends JPanel implements Observer {
 		this.model = model;
 		this.FPview = this;
 		this.mf = mf;
-		//Kreiranje instanci i podesavanje layout-a
+		// Kreiranje instanci i podesavanje layout-a
 		sastojciDugmad = new ArrayList<>();
 		aparatiDugmad = new ArrayList<>();
 		mapaDugmeSastojak = new HashMap<>();
@@ -79,14 +80,26 @@ public class FrontPageView extends JPanel implements Observer {
 		center = new JPanel();
 		center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
 
-		//kreira scroll panel za sastojke i aparate i povezuje ih sa odgovarajucim panelima i postavlja im odgovarajucu velicinu
+		// kreira scroll panel za sastojke i aparate i povezuje ih sa odgovarajucim
+		// panelima i postavlja im odgovarajucu velicinu
 		JScrollPane scrollSastojci = new JScrollPane(sastojciPanel);
-		scrollSastojci.setPreferredSize(new Dimension(180, 200));
+		scrollSastojci.setPreferredSize(new Dimension(190, 200));
 		JScrollPane scrollAparati = new JScrollPane(aparatiPanel);
-		scrollAparati.setPreferredSize(new Dimension(180, 200));
-		
-		//Iterira kroz sastojke koji se nalaze u instanci klase Aplikacija i za svaki sastojak kreira checkbox
-		//koji dodaje u listu checkbox-ova i povezuje checkbox sa sastojkom koristeci mapu i povezuje kontroler sa checkbox-om
+		scrollAparati.setPreferredSize(new Dimension(190, 200));
+
+		//Ako je korisnik ulogovan, ponudice mu da filtrira po svojim sastojcima i aparatima
+		if (Aplikacija.aplikacija.getTrenutniKorisnik() != null) {
+			checkKorisnikSastojci = new JCheckBox("Korisnikovi sastojci");
+			sastojciPanel.add(checkKorisnikSastojci);
+			checkKorisnikSastojci.addActionListener(control);
+			checkKorisnikAparati = new JCheckBox("Korisnikovi aparati");
+			aparatiPanel.add(checkKorisnikAparati);
+			checkKorisnikAparati.addActionListener(control);
+		}
+		// Iterira kroz sastojke koji se nalaze u instanci klase Aplikacija i za svaki
+				// sastojak kreira checkbox
+				// koji dodaje u listu checkbox-ova i povezuje checkbox sa sastojkom koristeci
+				// mapu i povezuje kontroler sa checkbox-om
 		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {
 			JCheckBox check = new JCheckBox(sastojak.getNaziv());
 			sastojciDugmad.add(check);
@@ -94,7 +107,8 @@ public class FrontPageView extends JPanel implements Observer {
 			check.addActionListener(control);
 			mapaDugmeSastojak.put(check, sastojak);
 		}
-		//isto kao i gore, samo za aparate
+		// isto kao i gore, samo za aparate
+
 		for (Aparat aparat : Aplikacija.aplikacija.getAparati()) {
 			JCheckBox check = new JCheckBox(aparat.getNaziv());
 			aparatiDugmad.add(check);
@@ -102,13 +116,13 @@ public class FrontPageView extends JPanel implements Observer {
 			check.addActionListener(control);
 			mapaDugmeAparat.put(check, aparat);
 		}
-		//Panel koji sadrzi labelu i dugme za prikaz svih najnovijih recepata
+		// Panel koji sadrzi labelu i dugme za prikaz svih najnovijih recepata
 		JPanel novirecOpste = new JPanel();
 		novirecOpste.add(new JLabel("Najnoviji recepti"));
 		btNoviExpand = new JButton("Prikazi sve");
 		btNoviExpand.addActionListener(control);
 		novirecOpste.add(btNoviExpand);
-		
+
 		// deo koda koji ce biti zamenjen uskoro. kreira dugmad za recepte
 		nov1 = new ImagePanel("./src/download.jpg", "Recept1", control);
 		nov2 = new ImagePanel("./src/download.jpg", "Recept2", control);
@@ -116,31 +130,31 @@ public class FrontPageView extends JPanel implements Observer {
 		pop1 = new ImagePanel("./src/download.jpg", "Recept4", control);
 		pop2 = new ImagePanel("./src/download.jpg", "Recept5", control);
 		pop3 = new ImagePanel("./src/download.jpg", "Recept6", control);
-		
-		//dodaje dugmad u panel za nove recepte
+
+		// dodaje dugmad u panel za nove recepte
 		noviReceptiPanel.add(nov1);
 		noviReceptiPanel.add(nov2);
 		noviReceptiPanel.add(nov3);
-		
-		//Panel koji sadrzi labelu i dugme za prikaz svih popularnih recepata
+
+		// Panel koji sadrzi labelu i dugme za prikaz svih popularnih recepata
 		JPanel poprecOpste = new JPanel();
 		poprecOpste.add(new JLabel("Najpopularniji recepti"));
 		btPopExpand = new JButton("Prikazi sve");
 		btPopExpand.addActionListener(control);
 		poprecOpste.add(btPopExpand);
-		
-		//dodaje dugmad u panel za popularne recepte
+
+		// dodaje dugmad u panel za popularne recepte
 		popularniReceptiPanel.add(pop1);
 		popularniReceptiPanel.add(pop2);
 		popularniReceptiPanel.add(pop3);
-		
-		//dodaje panele za nove i popularne recepte u centralni panel
+
+		// dodaje panele za nove i popularne recepte u centralni panel
 		center.add(novirecOpste);
 		center.add(noviReceptiPanel);
 		center.add(poprecOpste);
 		center.add(popularniReceptiPanel);
 
-		//TextField i dugme za pretragu
+		// TextField i dugme za pretragu
 		btSearch = new JButton("search");
 		btSearch.addActionListener(control);
 		textSearch = new JTextField("Unesite naziv recepta", 20);
@@ -154,12 +168,12 @@ public class FrontPageView extends JPanel implements Observer {
 		btLogOut.addActionListener(control);
 		btRegister = new JButton("Register");
 		btRegister.addActionListener(control);
-		
-		//Razlike u gui-i ako je korisnik prijavljen ili nije
+
+		// Razlike u gui-i ako je korisnik prijavljen ili nije
 		if (Aplikacija.aplikacija.getTrenutniKorisnik() == null) {
 			upper.add(btLogIn);
 			upper.add(btRegister);
-			
+
 		} else {
 			btProfil = new JButton("Profil");
 			btProfil.addActionListener(control);
@@ -169,8 +183,18 @@ public class FrontPageView extends JPanel implements Observer {
 			btDodajRecept.addActionListener(control);
 			left.add(btDodajRecept);
 		}
+		textVreme = new JTextField();
+		textVreme.setPreferredSize(new Dimension(40, 20));
+		JLabel lbVreme = new JLabel("vreme spremanja");
+		JPanel vremePanel = new JPanel();
+		vremePanel.add(lbVreme);
+		vremePanel.add(textVreme);
+		btSearchPoFilt = new JButton("Filtriraj");
+		btSearchPoFilt.addActionListener(control);
 		left.add(scrollSastojci);
 		left.add(scrollAparati);
+		left.add(vremePanel);
+		left.add(btSearchPoFilt);
 		add(upper, new MyGridBagConstraints(1, 0, 9, 1));
 		add(left, new MyGridBagConstraints(0, 1, 2, 9));
 		add(center, new MyGridBagConstraints(3, 2, 3, 2));
@@ -182,9 +206,11 @@ public class FrontPageView extends JPanel implements Observer {
 		System.out.println("Ulogovan");
 		repaint();
 	}
-	public void reload(){
+
+	public void reload() {
 		mf.replaceWindow();
 	}
+
 	private class Controller implements ActionListener {
 
 		@Override
@@ -195,7 +221,7 @@ public class FrontPageView extends JPanel implements Observer {
 				loginFrame.setLocationRelativeTo(null);
 
 				LoginModel loginModel = new LoginModel(FPview);
-				LoginView loginView = new LoginView(loginModel,loginFrame);
+				LoginView loginView = new LoginView(loginModel, loginFrame);
 				loginFrame.add(loginView);
 				loginFrame.setVisible(true);
 			} else if (obj.getSource() == btDodajRecept) {
@@ -224,6 +250,12 @@ public class FrontPageView extends JPanel implements Observer {
 				System.out.println("Popularni recept3");
 			} else if (obj.getSource() == btProfil) {
 				new KorisnikFrame();
+			} else if (obj.getSource() == checkKorisnikSastojci) {
+				System.out.println("cekirani sastojci korisnika");
+			} else if (obj.getSource() == checkKorisnikAparati) {
+				System.out.println("cekirani aparatai korisnika");
+			} else if (obj.getSource() == btSearchPoFilt) {
+				System.out.println("Pretraga po filterima");
 			} else {
 				for (JCheckBox aparatDugme : aparatiDugmad) {
 					if (aparatDugme == obj.getSource()) {
