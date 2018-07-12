@@ -27,7 +27,7 @@ public void initGUI(){
 		setSize(800,600);
 		setPreferredSize(new Dimension(800, 600));
 		setLocationRelativeTo(null);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		FrontPageView view = new FrontPageView(model,this);
 		setResizable(false);
