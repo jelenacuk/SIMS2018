@@ -43,7 +43,6 @@ public class UnosReceptaModel {
 		recept.setSuspendovan(false);
 		recept.setKategorija(Aplikacija.aplikacija.getKategorije().get(0));
 		recept.setKorisnik(Aplikacija.aplikacija.getTrenutniKorisnik());
-		Aplikacija.aplikacija.getTrenutniKorisnik().getRecepti().add(recept);
 		recept.setNeophodniAparati(potrebniAparati);
 		recept.setOpcioniAparati(opcioniAparati);
 		recept.setNeophodniSastojci(potrebniSastojci);
@@ -79,7 +78,6 @@ public class UnosReceptaModel {
 	public void addPotrebanAparat(Aparat a) {
 		potrebniAparati.add(a);
 		System.out.println(potrebniAparati.size());
-		Aplikacija.aplikacija.getAparati().add(a);
 
 	}
 

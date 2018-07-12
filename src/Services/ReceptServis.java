@@ -47,6 +47,9 @@ public class ReceptServis {
 			Boolean suspendovan = Boolean.parseBoolean(podaci[7]);
 			Kategorija kategorija = nadjiKategoriju(kategorije, Integer.parseInt(podaci[8]));
 			Korisnik korisnik = nadjiKorisnika(korisnici, podaci[9]);
+			if(korisnik == null) {
+				System.out.println("Korisnik nije pronadjen!");
+			}
 			ArrayList<Aparat> neophodniAparati = napraviListuAparata(podaci[10], aparati);
 			ArrayList<Aparat> opcioniAparati = napraviListuAparata(podaci[11], aparati);
 			ArrayList<KolicinaSastojka> neophodniSastojci = napraviListuSastojaka(podaci[12], sastojci);
@@ -185,7 +188,7 @@ public class ReceptServis {
 	public Korisnik nadjiKorisnika(ArrayList<Korisnik> korisnici, String username) {
 		Korisnik korisnik = null;
 		for (Korisnik kor : korisnici) {
-			if (kor.getUsername() == username) {
+			if (kor.getUsername().equals(username)) {
 				korisnik = kor;
 			}
 		}

@@ -1,1 +1,7 @@
-1|kolicina|1
+1|kolicina|0
+1|kolicina|0
+1|kolicina|0
+1|kolicina|0
+1|kolicina|0
+1|kolicina|0
+1|kolicina|3

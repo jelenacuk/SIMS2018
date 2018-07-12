@@ -21,7 +21,7 @@ public class Recept {
 	private ArrayList<Komentar> komentari;
 	private String slika;
 	public Recept() {
-		super();
+		super(); 
 		opcioniAparati = new ArrayList<>();
 		neophodniAparati = new ArrayList<>();
 		komentari = new ArrayList<>();
@@ -45,6 +45,7 @@ public class Recept {
 		this.suspendovan = suspendovan;
 		this.kategorija = kategorija;
 		this.korisnik = korisnik;
+		//System.out.println("Korisnik je: " + this.korisnik.getUsername() );
 		this.neophodniAparati = neophodniAparati;
 		this.opcioniAparati = opcioniAparati;
 		this.neophodniSastojci = neophodniSastojci;
