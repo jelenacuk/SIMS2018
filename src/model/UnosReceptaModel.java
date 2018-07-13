@@ -29,7 +29,7 @@ public class UnosReceptaModel {
 		potrebniAparati = new ArrayList<Aparat>();
 	}
 
-	public void unos(String naziv, String tekst) {
+	public void unos(String naziv, String tekst, Integer trajanje) {
 
 		Recept recept = new Recept();
 		recept.setIdRecepta(Aplikacija.aplikacija.getRecepti().size());
@@ -39,6 +39,7 @@ public class UnosReceptaModel {
 		recept.setKomentari(new ArrayList<Komentar>());
 		recept.setNaziv(naziv);
 		recept.setTekst(tekst);
+		recept.setTrajanjePripreme(trajanje);
 		recept.setOpis("");
 		recept.setSuspendovan(false);
 		recept.setKategorija(Aplikacija.aplikacija.getKategorije().get(0));

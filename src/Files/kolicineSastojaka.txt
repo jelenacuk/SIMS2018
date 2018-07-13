@@ -4,4 +4,8 @@
 1|kolicina|0
 1|kolicina|0
 1|kolicina|0
-1|kolicina|3
+1|kolicina|0
+1|kolicina|0
+1|kolicina|0
+1|kolicina|7
+1|kolicina|11

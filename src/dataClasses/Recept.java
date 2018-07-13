@@ -19,6 +19,7 @@ public class Recept {
 	private ArrayList<KolicinaSastojka> neophodniSastojci;
 	private ArrayList<KolicinaSastojka> opcioniSastojci;
 	private ArrayList<Komentar> komentari;
+	private int trajanjePripreme;
 	private String slika;
 	public Recept() {
 		super(); 
@@ -33,7 +34,7 @@ public class Recept {
 	public Recept(int idRecepta,String naziv, String opis, String tekst, int brLajkova, int brDislajkova, Date datumObjave,
 			boolean suspendovan, Kategorija kategorija, Korisnik korisnik, ArrayList<Aparat> neophodniAparati,
 			ArrayList<Aparat> opcioniAparati, ArrayList<KolicinaSastojka> neophodniSastojci,
-			ArrayList<KolicinaSastojka> opcioniSastojci, ArrayList<Komentar> komentari) {
+			ArrayList<KolicinaSastojka> opcioniSastojci, ArrayList<Komentar> komentari, int trajanje) {
 		super();
 		this.idRecepta = idRecepta;
 		this.naziv = naziv;
@@ -45,12 +46,12 @@ public class Recept {
 		this.suspendovan = suspendovan;
 		this.kategorija = kategorija;
 		this.korisnik = korisnik;
-		//System.out.println("Korisnik je: " + this.korisnik.getUsername() );
 		this.neophodniAparati = neophodniAparati;
 		this.opcioniAparati = opcioniAparati;
 		this.neophodniSastojci = neophodniSastojci;
 		this.opcioniSastojci = opcioniSastojci;
 		this.komentari = komentari;
+		this.trajanjePripreme = trajanje;
 		slika = "./src/download.jpg";
 	}
 	
@@ -150,6 +151,12 @@ public class Recept {
 	}
 	public void setSlika(String slika) {
 		this.slika = slika;
+	}
+	public int getTrajanjePripreme() {
+		return trajanjePripreme;
+	}
+	public void setTrajanjePripreme(int trajanjePripreme) {
+		this.trajanjePripreme = trajanjePripreme;
 	}
 	
 	

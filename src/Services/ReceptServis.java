@@ -55,10 +55,11 @@ public class ReceptServis {
 			ArrayList<KolicinaSastojka> neophodniSastojci = napraviListuSastojaka(podaci[12], sastojci);
 			ArrayList<KolicinaSastojka> opcioniSastojci = napraviListuSastojaka(podaci[13], sastojci);
 			ArrayList<Komentar> komentarii = napraviListuKomentara(podaci[14], komentari);
+			int trajanje = Integer.parseInt(podaci[15]);
 
 			Recept recept = new Recept(idRecepta, naziv, opis, tekst, brLajkova, brDislajkova, datumObjave, suspendovan,
 					kategorija, korisnik, neophodniAparati, opcioniAparati, neophodniSastojci, opcioniSastojci,
-					komentarii);
+					komentarii, trajanje);
 
 			recepti.add(recept);
 
@@ -140,6 +141,7 @@ public class ReceptServis {
 				strKomentari += rec.getKomentari().get(i).getIdKomentara();
 			}
 			strZaUpis += strKomentari;
+			strZaUpis += "|" +  rec.getTrajanjePripreme();
 
 			upisiRecept.println(strZaUpis);
 		}

@@ -31,7 +31,7 @@ public class UnosRecepataView extends JPanel {
 
 	private JPanel panelSastojci, panelAparati, panelDugmici;
 	private JTextArea tekst;
-	JTextField naziv;
+	JTextField naziv, trajanje;
 	private JButton dodajSastojak, dodajAparat, objavi, odustani;
 	private ArrayList<JCheckBox> sastojciDugmad, aparatiDugmad;
 	private HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
@@ -51,7 +51,7 @@ public class UnosRecepataView extends JPanel {
 		JLabel nazivRecepta = new JLabel("Naziv Recepta: ");
 		this.add(nazivRecepta);
 		naziv = new JTextField();
-		naziv.setPreferredSize(new Dimension(10, 20));
+		naziv.setPreferredSize(new Dimension(1000, 20));
 		naziv.setMaximumSize(new Dimension(1000, 20));
 		this.add(naziv);
 
@@ -141,6 +141,15 @@ public class UnosRecepataView extends JPanel {
 		dodajAparat.addActionListener(control);
 		panelZaAparateIDugme.add(dodajAparat);
 		this.add(panelZaAparateIDugme);
+		this.add(Box.createRigidArea(new Dimension(0, 20)));
+		
+		JLabel trajanjeL = new JLabel("Vreme pripreme (u minutima): ");
+		this.add(trajanjeL);
+		trajanje = new JTextField();
+		trajanje.setPreferredSize(new Dimension(1000, 20));
+		trajanje.setMaximumSize(new Dimension(1000, 20));
+		this.add(trajanje);
+		
 
 		this.add(Box.createRigidArea(new Dimension(0, 20)));
 		panelDugmici = new JPanel();
@@ -165,7 +174,8 @@ public class UnosRecepataView extends JPanel {
 				System.out.println("Objavi");
 				String nazivR = naziv.getText();
 				String tekstR = tekst.getText();
-				unosReceptaModel.unos(nazivR, tekstR);
+				Integer trajanjePripreme = Integer.parseInt(trajanje.getText());
+				unosReceptaModel.unos(nazivR, tekstR, trajanjePripreme);
 				unosReceptaFrame.setVisible(false);
 			} else if (obj.getSource() == dodajSastojak) {
 
