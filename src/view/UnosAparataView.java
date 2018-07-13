@@ -81,6 +81,7 @@ public class UnosAparataView extends JPanel {
 				String opisA = opis.getText();
 				Aparat aparat = new Aparat(Aplikacija.aplikacija.getAparati().size(), nazivA, opisA);
 				unosReceptaModel.addPotrebanAparat(aparat);
+				unosAparataFrame.setVisible(false);
 			}
 			else if ( obj.getSource() == odustani ) {
 				System.out.println("odustani");

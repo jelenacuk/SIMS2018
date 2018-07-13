@@ -90,6 +90,7 @@ public class UnosSastojakaView extends JPanel {
 				Aplikacija.aplikacija.getSastojci().add(sastojak);
 				KolicinaSastojka kol = new KolicinaSastojka(0, kolicinaS, sastojak);
 				unosReceptaModel.addPotrebanSastojak(kol);
+				unosSastojakaFrame.setVisible(false);
 			} else if (obj.getSource() == odustani) {
 				System.out.println("odustani");
 				unosSastojakaFrame.setVisible(false);

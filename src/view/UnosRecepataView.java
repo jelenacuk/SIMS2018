@@ -166,6 +166,7 @@ public class UnosRecepataView extends JPanel {
 				String nazivR = naziv.getText();
 				String tekstR = tekst.getText();
 				unosReceptaModel.unos(nazivR, tekstR);
+				unosReceptaFrame.setVisible(false);
 			} else if (obj.getSource() == dodajSastojak) {
 
 				System.out.println("dodaj sastojak");
