@@ -348,8 +348,7 @@ public class Recept {
 
 	}
 
-	public static ArrayList<KolicinaSastojka> napraviListuSastojaka(String line,
-			ArrayList<KolicinaSastojka> listaSastojaka) {
+	public static ArrayList<KolicinaSastojka> napraviListuSastojaka(String line, ArrayList<KolicinaSastojka> listaSastojaka) {
 		ArrayList<KolicinaSastojka> vrati = new ArrayList<KolicinaSastojka>();
 		String[] sastojci = line.split("\\;");
 		for (String sa : sastojci) {
