@@ -16,27 +16,25 @@ import gui.MainFrame;
 
 public class Main {
 
-	public static void ucitajPodatke(AparatServis aparati, SastojakServis sastojci,
-			KolicinaSastojkaServis kolicineSastojaka, KategorijaServis kategorije, KomentarServis komentari,
-			ReceptServis recepti, KorisnikServis korisnici) throws IOException, ParseException {
+	public static void ucitajPodatke() throws IOException, ParseException {
 
-		aparati.ucitaj("./src/Files/aparati.txt");
-		sastojci.ucitaj("./src/Files/sastojci.txt");
-		kolicineSastojaka.ucitaj("./src/Files/kolicineSastojaka.txt", sastojci.getSastojci());
-		kategorije.ucitaj("./src/Files/kategorije.txt");
-		korisnici.ucitajKorisnike("./src/Files/korisnici.txt", recepti.getListaRecepata(),
-				kolicineSastojaka.getKolicineSastojaka(), aparati.getAparati());
-		komentari.ucitaj("./src/Files/komentari.txt", korisnici.getKorisnici());
-		recepti.ucitaj("./src/Files/recepti.txt", korisnici.getKorisnici(), kolicineSastojaka.getKolicineSastojaka(),
-				aparati.getAparati(), kategorije.getKategorije(), komentari.getKomentari());
+		Aparat.ucitaj("./src/Files/aparati.txt");
+		Sastojak.ucitaj("./src/Files/sastojci.txt");
+		KolicinaSastojka.ucitaj("./src/Files/kolicineSastojaka.txt", Sastojak.getSastojci());
+		Kategorija.ucitaj("./src/Files/kategorije.txt");
+		Korisnik.ucitajKorisnike("./src/Files/korisnici.txt", Recept.getListaRecepata(),
+				KolicinaSastojka.getKolicineSastojaka(), Aparat.getAparati());
+		Komentar.ucitaj("./src/Files/komentari.txt", Korisnik.getKorisnici());
+		Recept.ucitaj("./src/Files/recepti.txt", Korisnik.getKorisnici(), KolicinaSastojka.getKolicineSastojaka(),
+				Aparat.getAparati(), Kategorija.getKategorije(), Komentar.getKomentari());
 
 		ArrayList<Integer> idRec = null;
-		for (Korisnik kor : korisnici.getKorisnici()) {
-			if (korisnici.getIdRecepata().containsKey(kor.getUsername())) {
-				idRec = korisnici.getIdRecepata().get(kor.getUsername());
+		for (Korisnik kor : Korisnik.getKorisnici()) {
+			if (Korisnik.getIdRecepata().containsKey(kor.getUsername())) {
+				idRec = Korisnik.getIdRecepata().get(kor.getUsername());
 				for (Integer id : idRec) {
 					Recept rec = null;
-					rec = korisnici.pronadjiRecept(recepti.getListaRecepata(), id.intValue());
+					rec = Korisnik.pronadjiRecept(Recept.getListaRecepata(), id.intValue());
 					kor.getRecepti().add(rec);
 				}
 			}
@@ -47,39 +45,25 @@ public class Main {
 
 	public static void upisiPodatke() throws IOException, ParseException {
 
-		KorisnikServis.upisiKorisnikeNew("./src/Files/korisnici.txt");
-		AparatServis.upisiAparate("./src/Files/aparati.txt");
-		KomentarServis.upisiKomentare("./src/Files/komentari.txt");
-		KategorijaServis.upisiKategorije("./src/Files/kategorije.txt");
-		SastojakServis.upisiSastojke("./src/Files/sastojci.txt");
-		KolicinaSastojkaServis.upisiKolicinuSastojaka("./src/Files/kolicineSastojaka.txt");
-		ReceptServis.upisiRecepte("./src/Files/recepti.txt");
+		Korisnik.upisiKorisnikeNew("./src/Files/korisnici.txt");
+		Aparat.upisiAparate("./src/Files/aparati.txt");
+		Komentar.upisiKomentare("./src/Files/komentari.txt");
+		Kategorija.upisiKategorije("./src/Files/kategorije.txt");
+		Sastojak.upisiSastojke("./src/Files/sastojci.txt");
+		KolicinaSastojka.upisiKolicinuSastojaka("./src/Files/kolicineSastojaka.txt");
+		Recept.upisiRecepte("./src/Files/recepti.txt");
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
 
-		AparatServis aparati = new AparatServis();
-		SastojakServis sastojci = new SastojakServis();
-		KolicinaSastojkaServis kolicineSastojaka = new KolicinaSastojkaServis();
-		KategorijaServis kategorije = new KategorijaServis();
-		KomentarServis komentari = new KomentarServis();
-		ReceptServis recepti = new ReceptServis();
-		KorisnikServis korisnici = new KorisnikServis();
+		ucitajPodatke();
 
-		ucitajPodatke(aparati, sastojci, kolicineSastojaka, kategorije, komentari, recepti, korisnici);
-
-		for (Korisnik k : korisnici.getKorisnici()) {
+		for (Korisnik k : Korisnik.getKorisnici()) {
 			System.out.println(k);
 		}
 
-		Aplikacija app = new Aplikacija(sastojci.getSastojci(), recepti.getListaRecepata(), kategorije.getKategorije(),
-				aparati.getAparati(), korisnici.getKorisnici());
-
-		for (Korisnik k : korisnici.getKorisnici()) {
-			if (k.getUsername() == "pera") {
-				Aplikacija.aplikacija.setTrenutniKorisnik(k);
-			}
-		}
+		Aplikacija app = new Aplikacija(Sastojak.getSastojci(), Recept.getListaRecepata(), Kategorija.getKategorije(),
+				Aparat.getAparati(), Korisnik.getKorisnici());
 
 		MainFrame mf = MainFrame.getInstance();
 		mf.setVisible(true);
