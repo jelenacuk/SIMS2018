@@ -1,10 +1,18 @@
 package dataClasses;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 public class Aparat {
 
 	private int idAparata;
 	private String naziv;
 	private String opis;
+	private static ArrayList<Aparat> aparati;
 
 	// test
 	public Aparat() {
@@ -59,6 +67,37 @@ public class Aparat {
 
 	public void setOpis(String opis) {
 		this.opis = opis;
+	}
+
+	public static void ucitaj(String nazivFajla) throws IOException {
+		aparati = new ArrayList<>();
+		BufferedReader bf = new BufferedReader(new FileReader(nazivFajla));
+		String line = "";
+		while ((line = bf.readLine()) != null) {
+			String[] podaci = line.split("\\|");
+			int id = Integer.parseInt(podaci[0]);
+			String naziv = podaci[1];
+			String opis = podaci[2];
+			Aparat aparat = new Aparat(id, naziv, opis);
+
+			aparati.add(aparat);
+		}
+		bf.close();
+	}
+
+	public static void upisiAparate(String nazivFajla) throws IOException {
+		PrintWriter upisiAparat = new PrintWriter(new FileWriter(nazivFajla));
+
+		for (Aparat ap : Aplikacija.aplikacija.getAparati()) {
+			String strZaUpis = ap.getIdAparata() + "|" + ap.getNaziv() + "|" + ap.getOpis();
+			upisiAparat.println(strZaUpis);
+		}
+		upisiAparat.close();
+
+	}
+
+	public static ArrayList<Aparat> getAparati() {
+		return aparati;
 	}
 
 }
