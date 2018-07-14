@@ -2,7 +2,10 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,13 +14,18 @@ import javax.swing.JScrollPane;
 import dataClasses.Aplikacija;
 import dataClasses.Recept;
 import gui.ImagePanel;
+import gui.PrikazReceptaFrame;
+import view.PrikazSvihRecepataView.Controler;
 
 public class PretragaRecepataPoNazivuView extends JPanel {
 	
 	private ArrayList<Recept> recepti;
-	
+	ArrayList<ImagePanel> receptiSlika;
+	HashMap<ImagePanel, Recept> mapaSlikaRecept;
 	public PretragaRecepataPoNazivuView(String naziv) {
-		
+		mapaSlikaRecept = new HashMap<>();
+		receptiSlika = new ArrayList<>();
+		Controler controller = new Controler();
 		
 		setSize(new Dimension(400, 400));
 		setPreferredSize(new Dimension(600, 600));
@@ -46,12 +54,31 @@ public class PretragaRecepataPoNazivuView extends JPanel {
 		}
 		else {
 			for (Recept recept : recepti) {
-				ImagePanel panel = new ImagePanel(recept.getSlika(), recept.getNaziv());
+				ImagePanel panel = new ImagePanel(recept.getSlika(), recept.getNaziv(),controller);
+				receptiSlika.add(panel);
+				mapaSlikaRecept.put(panel, recept);
 				receptiPanel.add(panel);
 			}
 		}
 		this.add(receptiPanel);
 		this.setVisible(true);
 	}
+	public class Controler implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent obj) {
+			for (ImagePanel imagePanel : receptiSlika) {
+				if(imagePanel.getButton() == obj.getSource()) {
+					PrikazReceptaFrame prikaz = new PrikazReceptaFrame();
+					PregledReceptaView pregledReceptaView = new PregledReceptaView(mapaSlikaRecept.get(imagePanel));
+					prikaz.setSize(new Dimension(600, 400));
+					prikaz.setLocationRelativeTo(null);
+					prikaz.add(pregledReceptaView);
+					prikaz.setVisible(true);
+				}
+			}
+			
+		}
+		
+	}
 }

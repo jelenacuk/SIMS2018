@@ -4,6 +4,7 @@ import java.awt.Dimension;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -21,11 +22,11 @@ public class PregledReceptaView extends JPanel {
 		this.add(naziv);
 		this.add(Box.createRigidArea(new Dimension(0, 30)));
 		
-		JLabel nacinPripreme = new JLabel(recept.getOpis());
-		nacinPripreme.setPreferredSize(new Dimension(600, 200));
+		JLabel nacinPripreme = new JLabel(recept.getTekst());
+		nacinPripreme.setPreferredSize(new Dimension(500, 150));
 		
 		this.add(Box.createRigidArea(new Dimension(0, 30)));
-		
+		this.add(nacinPripreme);
 		
 		JLabel sastojci = new JLabel("Potrebni sastojci:");
 		this.add(sastojci);
@@ -52,7 +53,12 @@ public class PregledReceptaView extends JPanel {
 			panelAparati.add(stavka);
 		}
 		this.add(panelAparati);
-		
+		JPanel panelDugmici = new JPanel();
+		JButton btObrisi = new JButton("Obrisi");
+		JButton izmeni = new JButton("Izmeni");
+		panelDugmici.add(btObrisi);
+		panelDugmici.add(izmeni);
+		this.add(panelDugmici);
 		this.setVisible(true);
 		
 	}

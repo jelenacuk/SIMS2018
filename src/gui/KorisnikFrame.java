@@ -1,20 +1,23 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import dataClasses.Aplikacija;
+import dataClasses.Recept;
 import view.IzmenaProfilaView;
 import view.KorisnikAparatiView;
 import view.KorisnikSastojciView;
-import view.LajkovaniReceptiView;
 import view.PregledProfilaView;
-import view.SopstveniReceptiView;
+import view.PrikazSvihRecepataView;
 
 public class KorisnikFrame extends JFrame {
 
 	PregledProfilaView pregledView;
-	SopstveniReceptiView sopstveniView;
-	LajkovaniReceptiView lajkovaniView;
+	PrikazSvihRecepataView sopstveniView;
+	PrikazSvihRecepataView lajkovaniView;
 	IzmenaProfilaView izmenaView;
 	KorisnikAparatiView aparatiView;
 	KorisnikSastojciView sastojciView;
@@ -23,8 +26,10 @@ public class KorisnikFrame extends JFrame {
 	public KorisnikFrame() {
 		tabovi = new JTabbedPane();
 		setLocationRelativeTo(null);
-		sopstveniView = new SopstveniReceptiView();
-		lajkovaniView = new LajkovaniReceptiView();
+		ArrayList<Recept> sopstveniRecepti = Aplikacija.aplikacija.getTrenutniKorisnik().getRecepti(); 
+		sopstveniView = new PrikazSvihRecepataView(sopstveniRecepti);
+		ArrayList<Recept> lajkovaniRecepti = Aplikacija.aplikacija.getTrenutniKorisnik().getLajkovaniRecepti(); 
+		lajkovaniView = new PrikazSvihRecepataView(lajkovaniRecepti);
 		izmenaView = new IzmenaProfilaView();
 		pregledView = new PregledProfilaView();
 		aparatiView = new KorisnikAparatiView();
