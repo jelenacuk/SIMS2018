@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
 import dataClasses.Korisnik;
+import dataClasses.Sastojak;
 
 public class KorisnikAparatiView extends JPanel {
 
@@ -27,8 +28,8 @@ public class KorisnikAparatiView extends JPanel {
 		Korisnik korisnik = Aplikacija.aplikacija.getTrenutniKorisnik();
 
 		if (korisnik.getAparati().size() == 0) {
-			JLabel labela = new JLabel("Nema aparata");
-			add(labela);
+			//JLabel labela = new JLabel("Nema aparata");
+			//add(labela);
 		}
 
 		aparati = korisnik.getAparati();
@@ -39,10 +40,15 @@ public class KorisnikAparatiView extends JPanel {
 		}
 
 		this.add(Box.createRigidArea(new Dimension(0, 40)));
-
+		for (Aparat aparat : Aplikacija.aplikacija.getAparati()) {
+			JPanel aparatPanel = new JPanel();
+			JLabel aparatLab = new JLabel(aparat.getNaziv());
+			aparatPanel.add(aparatLab);
+			add(aparatPanel);
+		}
 		dodaj = new JButton("Dodaj");
 		dodaj.addActionListener(control);
-
+		add(dodaj);
 		setVisible(true);
 
 	}

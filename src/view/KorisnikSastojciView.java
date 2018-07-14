@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import dataClasses.Aplikacija;
 import dataClasses.KolicinaSastojka;
 import dataClasses.Korisnik;
+import dataClasses.Sastojak;
 
 public class KorisnikSastojciView extends JPanel {
 
@@ -27,8 +28,8 @@ public class KorisnikSastojciView extends JPanel {
 		Korisnik korisnik = Aplikacija.aplikacija.getTrenutniKorisnik();
 
 		if (korisnik.getKolicinaSastojaka().size() == 0) {
-			JLabel labela = new JLabel("Nema sastojaka");
-			add(labela);
+			//JLabel labela = new JLabel("Nema sastojaka");
+			//add(labela);
 		}
 
 		sastojci = korisnik.getKolicinaSastojaka();
@@ -43,7 +44,16 @@ public class KorisnikSastojciView extends JPanel {
 		}
 
 		this.add(Box.createRigidArea(new Dimension(0, 40)));
-
+		for (Sastojak sastojak : Aplikacija.aplikacija.getSastojci()) {
+			JPanel kolicinaPanel = new JPanel();
+			JLabel sastojakLab = new JLabel(sastojak.getNaziv());
+			JLabel space = new JLabel("     ");
+			JLabel kolicinaLab = new JLabel("2");
+			kolicinaPanel.add(sastojakLab);
+			kolicinaPanel.add(space);
+			kolicinaPanel.add(kolicinaLab);
+			add(kolicinaPanel);
+		}
 		dodaj = new JButton("Dodaj");
 		dodaj.addActionListener(control);
 		add(dodaj);
