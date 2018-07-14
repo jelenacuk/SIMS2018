@@ -46,7 +46,7 @@ public class KorisnikSastojciView extends JPanel {
 
 		dodaj = new JButton("Dodaj");
 		dodaj.addActionListener(control);
-
+		add(dodaj);
 		setVisible(true);
 
 	}

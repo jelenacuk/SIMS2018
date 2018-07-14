@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Observable;
 
 import dataClasses.Aparat;
+import dataClasses.Aplikacija;
 import dataClasses.Recept;
 import dataClasses.Sastojak;
 import utility.Sorter;
@@ -18,6 +19,8 @@ public class FrontPageModel extends Observable {
 	public FrontPageModel() {
 		selektovaniSastojci = new ArrayList<>();
 		selektovaniAparati = new ArrayList<>();
+		receptiPoVremenu = sortirajReceptPoVremenu(Aplikacija.aplikacija.getRecepti());
+		receptiPoPopularnosti = sortirajReceptPoPopularnosti(Aplikacija.aplikacija.getRecepti());
 	}
 
 	public ArrayList<Recept> sortirajReceptPoVremenu(ArrayList<Recept> lista) {

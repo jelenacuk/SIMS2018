@@ -5,10 +5,12 @@ import javax.swing.*;
 import Services.MyGridBagConstraints;
 import dataClasses.Aparat;
 import dataClasses.Aplikacija;
+import dataClasses.Recept;
 import dataClasses.Sastojak;
 import gui.ImagePanel;
 import gui.KorisnikFrame;
 import gui.MainFrame;
+import gui.PrikazReceptaFrame;
 import gui.UnosRecepataFrame;
 import model.FrontPageModel;
 import model.LoginModel;
@@ -45,7 +47,9 @@ public class FrontPageView extends JPanel implements Observer {
 	// prikazani koriscenjem ImagePanel klase
 	JPanel center, noviReceptiPanel, popularniReceptiPanel;
 	JButton btNoviExpand, btPopExpand; // dugmad sluze za prikaz svih recepata sortiranih po datom kriterijumu
-	ImagePanel nov1, nov2, nov3, pop1, pop2, pop3; // paneli kojima su predstavljeni recepti
+	//ImagePanel nov1, nov2, nov3, pop1, pop2, pop3; // paneli kojima su predstavljeni recepti
+	ArrayList<ImagePanel> noviReceptiSlika,popularniReceptiSlika;
+	HashMap<ImagePanel, Recept> mapaSlikaReceptNovi,mapaSlikaReceptPop;
 	ArrayList<JCheckBox> sastojciDugmad, aparatiDugmad;
 	HashMap<JCheckBox, Sastojak> mapaDugmeSastojak;
 	HashMap<JCheckBox, Aparat> mapaDugmeAparat;
@@ -60,6 +64,10 @@ public class FrontPageView extends JPanel implements Observer {
 		this.model = model;
 		this.FPview = this;
 		this.mf = mf;
+		noviReceptiSlika = new ArrayList<>();
+		popularniReceptiSlika = new ArrayList<>();
+		mapaSlikaReceptNovi = new HashMap<>();
+		mapaSlikaReceptPop = new HashMap<>();
 		// Kreiranje instanci i podesavanje layout-a
 		sastojciDugmad = new ArrayList<>();
 		aparatiDugmad = new ArrayList<>();
@@ -122,8 +130,20 @@ public class FrontPageView extends JPanel implements Observer {
 		btNoviExpand = new JButton("Prikazi sve");
 		btNoviExpand.addActionListener(control);
 		novirecOpste.add(btNoviExpand);
-
-		// deo koda koji ce biti zamenjen uskoro. kreira dugmad za recepte
+		for (int i = 0; i<3;i++)
+		{
+			if(model.getReceptiPoVremenu().size()>i) {
+				ImagePanel novi = new ImagePanel(model.getReceptiPoVremenu().get(i).getSlika(), model.getReceptiPoVremenu().get(i).getNaziv(),control);
+				ImagePanel pop = new ImagePanel(model.getReceptiPoPopularnosti().get(i).getSlika(), model.getReceptiPoPopularnosti().get(i).getNaziv(),control);
+				noviReceptiSlika.add(novi);
+				popularniReceptiSlika.add(pop);
+				noviReceptiPanel.add(novi);
+				popularniReceptiPanel.add(pop);
+				mapaSlikaReceptNovi.put(novi,model.getReceptiPoVremenu().get(i));
+				mapaSlikaReceptPop.put(pop, model.getReceptiPoPopularnosti().get(i));
+			}
+		}
+		/*// deo koda koji ce biti zamenjen uskoro. kreira dugmad za recepte
 		nov1 = new ImagePanel("./src/download.jpg", "Recept1", control);
 		nov2 = new ImagePanel("./src/download.jpg", "Recept2", control);
 		nov3 = new ImagePanel("./src/download.jpg", "Recept3", control);
@@ -134,7 +154,7 @@ public class FrontPageView extends JPanel implements Observer {
 		// dodaje dugmad u panel za nove recepte
 		noviReceptiPanel.add(nov1);
 		noviReceptiPanel.add(nov2);
-		noviReceptiPanel.add(nov3);
+		noviReceptiPanel.add(nov3);*/
 
 		// Panel koji sadrzi labelu i dugme za prikaz svih popularnih recepata
 		JPanel poprecOpste = new JPanel();
@@ -144,9 +164,9 @@ public class FrontPageView extends JPanel implements Observer {
 		poprecOpste.add(btPopExpand);
 
 		// dodaje dugmad u panel za popularne recepte
-		popularniReceptiPanel.add(pop1);
+		/*popularniReceptiPanel.add(pop1);
 		popularniReceptiPanel.add(pop2);
-		popularniReceptiPanel.add(pop3);
+		popularniReceptiPanel.add(pop3);*/
 
 		// dodaje panele za nove i popularne recepte u centralni panel
 		center.add(novirecOpste);
@@ -244,18 +264,6 @@ public class FrontPageView extends JPanel implements Observer {
 				System.out.println("Prikazi nove recepte");
 			} else if (obj.getSource() == btPopExpand) {
 				System.out.println("Prikazi popularne recepte");
-			} else if (obj.getSource() == nov1.getButton()) {
-				System.out.println("Novi recept1");
-			} else if (obj.getSource() == nov2.getButton()) {
-				System.out.println("Novi recept2");
-			} else if (obj.getSource() == nov3.getButton()) {
-				System.out.println("Novi recept3");
-			} else if (obj.getSource() == pop1.getButton()) {
-				System.out.println("Popularni recept1");
-			} else if (obj.getSource() == pop2.getButton()) {
-				System.out.println("Popularni recept2");
-			} else if (obj.getSource() == pop3.getButton()) {
-				System.out.println("Popularni recept3");
 			} else if (obj.getSource() == btProfil) {
 				new KorisnikFrame();
 			} else if (obj.getSource() == checkKorisnikSastojci) {
@@ -283,6 +291,26 @@ public class FrontPageView extends JPanel implements Observer {
 							model.removeSelektovanAparat(mapaDugmeAparat.get(sastojakDugme));
 						}
 						break;
+					}
+				}
+				for (ImagePanel imagePanel : noviReceptiSlika) {
+					if(imagePanel.getButton() == obj.getSource()) {
+						PrikazReceptaFrame prikaz = new PrikazReceptaFrame();
+						PregledReceptaView pregledReceptaView = new PregledReceptaView(mapaSlikaReceptNovi.get(imagePanel));
+						prikaz.setSize(new Dimension(600, 400));
+						prikaz.setLocationRelativeTo(null);
+						prikaz.add(pregledReceptaView);
+						prikaz.setVisible(true);
+					}
+				}
+				for (ImagePanel imagePanel : popularniReceptiSlika) {
+					if(imagePanel.getButton() == obj.getSource()) {
+						PrikazReceptaFrame prikaz = new PrikazReceptaFrame();
+						PregledReceptaView pregledReceptaView = new PregledReceptaView(mapaSlikaReceptPop.get(imagePanel));
+						prikaz.setSize(new Dimension(600, 400));
+						prikaz.setLocationRelativeTo(null);
+						prikaz.add(pregledReceptaView);
+						prikaz.setVisible(true);
 					}
 				}
 

@@ -95,9 +95,6 @@ public class UnosSastojakaView extends JPanel {
 				System.out.println("odustani");
 				unosSastojakaFrame.setVisible(false);
 			}
-
 		}
-
 	}
-
 }

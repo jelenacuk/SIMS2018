@@ -17,7 +17,6 @@ public class PregledReceptaView extends JPanel {
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
-		
 		JLabel naziv = new JLabel(recept.getNaziv().toUpperCase());
 		this.add(naziv);
 		this.add(Box.createRigidArea(new Dimension(0, 30)));
