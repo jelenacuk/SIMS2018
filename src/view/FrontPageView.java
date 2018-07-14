@@ -261,9 +261,19 @@ public class FrontPageView extends JPanel implements Observer {
 				pretragaPoNazivuFrame.setVisible(true);
 				
 			} else if (obj.getSource() == btNoviExpand) {
-				System.out.println("Prikazi nove recepte");
+				PrikazReceptaFrame prikazNovihFrame = new PrikazReceptaFrame();
+				PrikazSvihRecepataView prikaz = new PrikazSvihRecepataView(model.getReceptiPoVremenu());
+				prikazNovihFrame.add(prikaz);
+				prikazNovihFrame.setSize(new Dimension(800, 600));
+				prikazNovihFrame.setLocationRelativeTo(null);
+				prikazNovihFrame.setVisible(true);
 			} else if (obj.getSource() == btPopExpand) {
-				System.out.println("Prikazi popularne recepte");
+				PrikazReceptaFrame prikazFrame = new PrikazReceptaFrame();
+				PrikazSvihRecepataView prikaz = new PrikazSvihRecepataView(model.getReceptiPoPopularnosti());
+				prikazFrame.add(prikaz);
+				prikazFrame.setSize(new Dimension(800, 600));
+				prikazFrame.setLocationRelativeTo(null);
+				prikazFrame.setVisible(true);
 			} else if (obj.getSource() == btProfil) {
 				new KorisnikFrame();
 			} else if (obj.getSource() == checkKorisnikSastojci) {
