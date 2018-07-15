@@ -415,7 +415,7 @@ public class Korisnik {
 		return pronadjeniRecept;
 	}
 
-	private static Aparat pronadjiAparat(ArrayList<Aparat> aparati, String id) {
+	public static Aparat pronadjiAparat(ArrayList<Aparat> aparati, String id) {
 		Aparat pronadjeniAparat = null;
 		for (Aparat ap : aparati) {
 			if (ap.getIdAparata() == Integer.parseInt(id)) {
