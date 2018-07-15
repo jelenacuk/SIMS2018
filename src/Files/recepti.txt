@@ -1,7 +1,8 @@
-0|Rec1|      |test|0|0|12.07.2018.|false|0|pera|0| |1| | |30
-1|Rec2|      |Priprema|0|0|12.07.2018.|false|0|pera|5| |1| | |30
-2|Rec3|      |Sad|0|0|12.07.2018.|false|0|pera|2;1| |1;1| | |30
-3|Rec4|     |sadsadas|0|0|12.07.2018.|false|0|pera|0| |1;1| | |30
-4|Rec6|    |sadad|0|0|12.07.2018.|false|0|pera|1;2;3;5;4| |1| | |30
-5|sndjs|   |cdcdc|0|0|13.07.2018.|false|0|pera|1;2| |1;1| | |30
-6|Palacinke| |asdsa|0|0|13.07.2018.|false|0|pera|0| |1;1| | |45
+0|Mafin-pita|       |Umutiti u ciniji dobro cela jaja sa secerom i vanil secerom,\n dodati jogurt i ulje i izmesati. |5|0|12.07.2018.|false|0|pera|0| |1| | |30
+1|Prevrnute tortice|       |Oprane breskve nasecite na, ne previse, tanke snitice.\n Premazite uljem 18 kalupa za mafine,|0|0|12.07.2018.|false|0|pera|5| |1| | |30
+2|Slatka pita sa tikvicama|       |Prvo tikvice ocistiti narendati i ostaviti oko pola sata da otpuste vodu. Potom ih ocediti.|0|0|12.07.2018.|false|0|pera|2;1| |1;1| | |30
+3|Domaci krekeri|      |Maslac omeksati na sobnoj temperaturi i staviti u dublju posudu, dodati ulje i rukama izgnjeciti.|0|0|12.07.2018.|false|0|pera|0| |1;1| | |30
+4|Projice sa pavlakom|     |Rernu ukljuciti na 200C. Kalupe za mafine podmazati silikonskom cetkicom sa vrlo malo ulja|0|0|12.07.2018.|false|0|pera|1;2;3;5;4| |1| | |30
+5|Ustipci sa kiselim mlekom|    |U odgovarajucu posudu ulupati jaje, posoliti, izmesati.|0|0|13.07.2018.|false|0|pera|1;2| |1;1| | |30
+6|Palacinke|  |Umutiti jaja, dodati mleko, posoliti,|0|0|13.07.2018.|false|0|pera|0| |1;1| | |45
+7|Pancerote| |U mlako mleko i vodu staviti kvasac i secer da nadodje.|0|0|13.07.2018.|false|0|pera|2| |1| | |30

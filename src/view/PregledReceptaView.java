@@ -58,7 +58,9 @@ public class PregledReceptaView extends JPanel {
 		JButton izmeni = new JButton("Izmeni");
 		panelDugmici.add(btObrisi);
 		panelDugmici.add(izmeni);
+		this.add(new JButton("Komentari"));
 		this.add(panelDugmici);
+		
 		this.setVisible(true);
 		
 	}
