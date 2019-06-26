@@ -2,7 +2,7 @@
 Projekat iz specifikacije i modelovanja softvera ftn 2018
 
 Autori:
-Jelena Ćuk
-Mile Praštalo
+Jelena Ćuk,
+Mile Praštalo,
 Nikola Šarić
 
